@@ -11,8 +11,8 @@ int main()
     bigNum=600851475143;
     lastFactor=0;
 
-    printf("Project Euler - Problem 3:\n");
-    printf("What is the largest prime factor of the number 600851475143 ?\n\n");
+    printf("Project Euler - Problem 3:\n"
+           "What is the largest prime factor of the number 600851475143 ?\n\n");
 
     for (i=2; i<10000; i++)
     {

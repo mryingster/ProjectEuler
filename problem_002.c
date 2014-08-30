@@ -4,8 +4,8 @@
 
 int main()
 {
-  printf("Project Euler - Problem 2:\n");
-  printf("By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.\n\n");
+    printf("Project Euler - Problem 2:\n"
+           "By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.\n\n");
 
     int i, previousNum=0, nextNum=0, currentNum=1, total;
 
