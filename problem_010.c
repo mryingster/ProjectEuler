@@ -3,34 +3,39 @@
 #include <stdio.h>
 #include <math.h>
 
+int isPrime(int input, int *primes)
+{
+    int n=0;
+
+    if (input == 2)
+        return 1;
+    else
+        while (primes[n] != 0)
+        {
+            if (input % primes[n] == 0)
+                return 0;
+            n++;
+        }
+    return 1;
+}
+
 int main()
 {
-    int i, n, prime;
+    int i = 0, n = 0;
+    int primes[500000] = {0};
     unsigned long long sum;
-    i=n=sum=0;
 
     printf("Project Euler - Problem 10:\n"
            "Find the sum of all the primes below two million.\n\n");
 
-    for (i=1 ; i<2000000 ; i++)
+    for (i=2 ; i<2000000 ; i++)
     {
-        prime=1;
-        for (n=2 ; n<i ; n++)
-        {
-            if (i % n)
-                prime=1;
-            else
-            {
-                if (i == 2)
-                    prime=1;
-                else
-                    prime=0;
-                break;
-            }
-        }
-        if (prime == 1)
+        if (isPrime(i, primes))
 	{
             sum=sum+i;
+            primes[n]=i;
+            n++;
+            //printf("prime:%i Total:%llu\n", i, sum);
 	}
     }
     printf("Sum of primes: \033[1m%llu\033[0m\n", sum);
