@@ -86,11 +86,13 @@ int main()
     {
         i++;
         triangle = triangle+i;
+        // Skip numbers not divisible by 3 or 5
+        if ( (triangle % 3 != 0) || (triangle % 5 != 0) )
+            continue;
         divisors = findDivisors(triangle, primes, primesToFind);
+
         if (divisors > 500)
             break;
-        i++;
-        triangle = triangle+i;
     }
 
     printf("Triangle Value: \033[1m%i\033[0m, Divisors: %i\n", triangle, divisors);
