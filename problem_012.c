@@ -26,26 +26,17 @@ int findDivisors(int input, int *primes, int primesToFind)
 
     // Prime factorization
     while (input != 1)
-    {
         for (i=0; i<primesToFind; i++)
-        {
             if (input % primes[i] == 0)
             {
                 input = input / primes[i];
                 primeCount[i]++;
-                //count++;
             }
-        }
-    }
 
     // Convert prime factorization to divisors
     for (i=0; i<primesToFind; i++)
-    {
         if (primeCount[i] > 0)
-        {
-            count=count*(primeCount[i]+1);
-        }
-    }
+            count *= (primeCount[i]+1);
 
     return count;
 }
