@@ -58,7 +58,7 @@ int main()
 
     }
 
-    printf("Total Mondays: %i\n", sum);
+    printf("Total Sundays: %i\n", sum);
 
     return 0;
 }
