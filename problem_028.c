@@ -7,7 +7,7 @@ int main()
     printf("Project Euler - Problem 28:\n"
            "Starting with the number 1 and moving to the right in a clockwise direction, form a 1001 by 1001 spiral. What is the sum of the numbers on the diagonals in this spiral?\n\n");
 
-    int sum      = 0;
+    int sum        = 0;
     int sideLength = 1001;
     int spiralSize = sideLength * sideLength;
     int position   = 0;
@@ -22,11 +22,8 @@ int main()
 
         // Skip 2 positions every time we go around all 4 sides
         side++;
-        if ( side == 4 )
-        {
-            side = 0;
+        if ( side % 4 == 0)
             skipAmount += 2;
-        }
     }
 
     printf("Sum: %d\n", sum);
