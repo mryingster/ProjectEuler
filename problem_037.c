@@ -1,22 +1,9 @@
-// -*- compile-command: "gcc -o problem_037 problem_037.c -Wall -lm" -*-
+// -*- compile-command: "gcc -o problem_037 problem_037.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
-
-int isPrime(int input, int *primes)
-{
-    int index=0;
-    if (input == 2) return 1;
-    else
-        while (primes[index] != 0 && primes[index] <= sqrt(input))
-        {
-    if (input % primes[index] == 0)
-        return 0;
-    index++;
-}
-    return 1;
-}
+#include <ceuler.h>
 
 bool inArray(int value, int *array)
 {
@@ -40,7 +27,7 @@ int main()
 
     // Find primes
     for (index=2 ; index<800000 ; index++)
-        if (isPrime(index, primes))
+        if (isPrimeOpt(index, primes) == true)
         {
             primes[primeCount]=index;
             primeCount++;
@@ -75,7 +62,6 @@ int main()
                 break;
             }
         }
-
         if (truncatable == false) continue;
 
         // Truncate from left
