@@ -1,43 +1,28 @@
-// -*- compile-command: "gcc -o problem_010 problem_010.c -Wall" -*-
+// -*- compile-command: "gcc -o problem_010 problem_010.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
-#include <math.h>
-
-int isPrime(int input, int *primes)
-{
-    int n=0;
-
-    if (input == 2)
-        return 1;
-    else
-        while (primes[n] != 0)
-        {
-            if (input % primes[n] == 0)
-                return 0;
-            n++;
-        }
-    return 1;
-}
+#include <ceuler.h>
 
 int main()
 {
-    int i = 0, n = 0;
+    int index  = 0;
+    int number = 0;
     int primes[500000] = {0};
-    unsigned long long sum;
+    unsigned long long sum = 0;
 
     printf("Project Euler - Problem 10:\n"
            "Find the sum of all the primes below two million.\n\n");
 
-    for (i=2 ; i<2000000 ; i++)
-    {
-        if (isPrime(i, primes))
+    for (number=2 ; number<2000000 ; number++)
+        if (isPrimeOpt(number, primes))
 	{
-            sum=sum+i;
-            primes[n]=i;
-            n++;
-            //printf("prime:%i Total:%llu\n", i, sum);
+            sum += number;
+            primes[index] = number;
+            index++;
+            //printf("prime:%i Total:%llu\n", i, sum); //DEBUG
 	}
-    }
-    printf("Sum of primes: \033[1m%llu\033[0m\n", sum);
+
+    printf("Sum of primes: %llu\n", sum);
+
     return 0;
 }
