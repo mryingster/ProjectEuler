@@ -4,23 +4,21 @@
 
 int main()
 {
-    int i, total = 0;
+    int number, total = 0;
 
     printf("Project Euler - Problem 1:\n"
            "Find the sum of all the multiples of 3 or 5 below 1000.\n\n");
 
-   for (i=0 ; i<1000 ; i++)
+   for ( number=0 ; number<1000 ; number++ )
    {
-       if ( i % 3 )
-           if ( i % 5 )
-               printf("");
-           else
-               total=total+i;
+       if ( number % 3 == 0 )
+           total += number;
        else
-           total=total+i;
-    }
+           if ( number % 5 == 0 )
+               total += number;
+   }
 
-    printf("Sum: \033[1m%i\033[0m\n", total);
+    printf("Sum: %d\n", total);
     return 0;
 }
 
