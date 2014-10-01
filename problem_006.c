@@ -4,25 +4,24 @@
 
 int main()
 {
-    int i, j, sumsquares, squaresums, candidate;
+    int number = 0, sumsquares = 0, squaresums = 0, result = 0;
 
     printf("Project Euler - Problem 6:\n"
            "Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.\n\n");
 
-    squaresums=sumsquares=0;
+    for (number=1 ; number<=100 ; number++)
+        squaresums += number;
 
-    for (i=1 ; i<101 ; i++)
-        squaresums=squaresums+i;
-    squaresums=squaresums*squaresums;
+    squaresums *= squaresums;
 
-    for (j=1 ; j<101 ; j++)
-        sumsquares=sumsquares+j*j;
+    for (number=1 ; number<=100 ; number++)
+        sumsquares += (number * number);
 
-    //printf("%i %i\n", squaresums, sumsquares);
+    //printf("%d %d\n", squaresums, sumsquares); // DEBUG
 
-    candidate=squaresums-sumsquares;
+    result = squaresums-sumsquares;
 
-    printf("Difference: \033[1m%i\033[0m\n", candidate);
+    printf("Difference: %d\n", result);
 
     return 0;
 }
