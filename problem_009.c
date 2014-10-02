@@ -4,26 +4,25 @@
 
 int main()
 {
-    int a = 0, b = 0, c = 0;
+    const int target = 1000;
     int product = 0;
+    int a, b, c;
 
     printf("Project Euler - Problem 9:\n"
-           "There exists exactly one Pythagorean triplet for which a + b + c = 1000.\n"
-           "Find the product abc.\n\n");
+           "There exists exactly one Pythagorean triplet for which a + b + c = 1000. Find the product abc.\n\n");
 
-    for (a=1 ; a<1000 ; a++)
+    for (a=1 ; a<target/2 ; a++)
     {
-        for (b=a ; b<1000 ; b++)
+        for (b=a ; b<target/2 ; b++)
         {
-            for (c=b ; c<1000 ; c++)
+            for (c=b ; c<target ; c++)
             {
-                if (a*a + b*b == c*c)
-                    if (a + b + c == 1000)
-                    {
-                        //printf("Found Match. %i %i %i %i\n", a, b, c, a*b*c);
-                        product=a*b*c;
-                        break;
-                    }
+                if (a*a + b*b == c*c && a + b + c == target)
+                {
+                    //printf("Found Match. %d %d %d %i\n", a, b, c, a*b*c); //DEBUG
+                    product = a*b*c;
+                    break;
+                }
             }
             if (product != 0)
                 break;
@@ -32,7 +31,7 @@ int main()
             break;
     }
 
-    printf("Product: \033[1m%i\033[0m\n", a * b * c);
+    printf("Product: %d\n", product);
 
     return 0;
 }
