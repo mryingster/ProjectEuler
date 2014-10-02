@@ -4,11 +4,11 @@
 
 int main()
 {
-    int i = 0, j = 0;
+    int y = 0, x = 0;
     int largest = 0, candidate = 0;
 
     printf("Project Euler - Problem 11:\n"
-           "What is the greatest product of four adjacent numbers in any direction (up, down, left, right, or diagonally) in the 20×20 grid?.\n\n"
+           "What is the greatest product of four adjacent numbers in any direction (up, down, left, right, or diagonally) in the 20x20 grid?\n\n"
            "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08\n"
            "49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00\n"
            "81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65\n"
@@ -53,46 +53,50 @@ int main()
         {01,70,54,71,83,51,54,69,16,92,33,48,61,43,52, 1,89,19,67,48}
     };
 
+    const unsigned long gridYSize = sizeof(grid[0]) / sizeof(int);
+    const unsigned long gridXSize = sizeof(grid) / sizeof(int) / gridYSize;
+    const int searchSize = 4;
+
     //Horizontal
-    for (i=0 ; i<20 ; i++)
-        for (j=0 ; j<17 ; j++)
+    for (y=0 ; y<gridYSize ; y++)
+        for (x=0 ; x<=gridXSize - searchSize ; x++)
         {
-            candidate=grid[i][j]*grid[i][j+1]*grid[i][j+2]*grid[i][j+3];
+            candidate = grid[y][x] * grid[y][x+1] * grid[y][x+2] * grid[y][x+3];
             //printf("%i\n", candidate);
-            if (candidate>largest)
-                largest=candidate;
+            if (candidate > largest)
+                largest = candidate;
         }
 
     //Vertical
-    for (i=0 ; i<17 ; i++)
-        for (j=0 ; j<20 ; j++)
+    for (y=0 ; y<=gridYSize - searchSize ; y++)
+        for (x=0 ; x<gridXSize ; x++)
         {
-            candidate=grid[i][j]*grid[i+1][j]*grid[i+2][j]*grid[i+3][j];
+            candidate = grid[y][x] * grid[y+1][x] * grid[y+2][x] * grid[y+3][x];
             //printf("%i\n", candidate);
-            if (candidate>largest)
-                largest=candidate;
+            if (candidate > largest)
+                largest = candidate;
         }
 
     //Diagonal down right
-    for (i=0 ; i<17 ; i++)
-        for (j=0 ; j<17 ; j++)
+    for (y=0 ; y<=gridYSize - searchSize ; y++)
+        for (x=0 ; x<=gridXSize - searchSize ; x++)
         {
-            candidate=grid[i][j]*grid[i+1][j+1]*grid[i+2][j+2]*grid[i+3][j+3];
+            candidate = grid[y][x] * grid[y+1][x+1] * grid[y+2][x+2] * grid[y+3][x+3];
             //printf("%i\n", candidate);
-            if (candidate>largest)
-                largest=candidate;
+            if (candidate > largest)
+                largest = candidate;
         }
 
     //Diagonal down left
-    for (i=3 ; i<20 ; i++)
-        for (j=0 ; j<17 ; j++)
+    for (y=3 ; y<gridYSize ; y++)
+        for (x=0 ; x<=gridXSize - searchSize ; x++)
         {
-            candidate=grid[i][j]*grid[i-1][j+1]*grid[i-2][j+2]*grid[i-3][j+3];
+            candidate = grid[y][x] * grid[y-1][x+1] * grid[y-2][x+2] * grid[y-3][x+3];
             //printf("%i\n", candidate);
-            if (candidate>largest)
-                largest=candidate;
+            if (candidate > largest)
+                largest = candidate;
         }
 
-    printf("Greatest product: \033[1m%i\033[0m\n", largest);
+    printf("Greatest product: %d\n", largest);
     return 0;
 }
