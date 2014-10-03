@@ -45,6 +45,28 @@ bool isPalindromic(int input)
     return false;
 }
 
+bool isPandigital(long number)
+{
+    bool digits[10] = {false};
+
+    // Decompose number
+    while (number > 0)
+    {
+        short digit = number % 10;
+        if ( digits[digit] == true )
+            return false;
+        digits[digit] = true;
+        number /= 10;
+    }
+
+    // Check that each digit is used once
+    short index;
+    for (index = 1 ; index < 10 ; index++ )
+        if ( digits[index] == false )
+            return false;
+    return true;
+}
+
 int digitFactorial(int input)
 {
     switch (input)

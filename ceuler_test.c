@@ -28,6 +28,13 @@ int main()
     else
         printf("Fail\n");
 
+    // Test pandigital number
+    printf("Testing isPandigital() function: ");
+    if (isPandigital(951628437) == true && isPandigital(123455789) == false)
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
     // Test digit factorial
     printf("Testing digitFactorial() function: ");
     if (digitFactorial(9) == 362880 && digitFactorial(10) == 0)

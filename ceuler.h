@@ -7,6 +7,7 @@
 bool isPrime(int input);
 bool isPrimeOpt(int input, int *primes);
 bool isPalindromic(int input);
+bool isPandigital(long number);
 int  digitFactorial(int input);
 bool isEven(int anumber);
 
