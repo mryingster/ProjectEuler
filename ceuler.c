@@ -6,7 +6,7 @@ bool isPrime(int input)
     int index;
     if (input == 2) return true;
 
-    for (index=2 ; index<input ; index++)
+    for (index=2 ; index<sqrt(input) ; index++)
       if (input % index == 0)
           return false;
 
@@ -18,7 +18,7 @@ bool isPrimeOpt(int input, int *primes)
     int index = 0;
     if (input == 2) return true;
 
-    while (primes[index] != 0)
+    while (primes[index] != 0 && primes[index] <= sqrt(input))
     {
         if (input % primes[index] == 0)
             return false;
