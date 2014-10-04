@@ -86,6 +86,14 @@ int digitFactorial(int input)
     return 0;
 }
 
+int numberOfDigits(long long number)
+{
+    if (number == 0) return 1;
+    if (number <  0) number *= -1;
+    int digits = floor(log10(number))+1;
+    return digits;
+}
+
 bool isEven(int anumber)
 {
     if (anumber % 2 == 0)

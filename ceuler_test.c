@@ -42,6 +42,13 @@ int main()
     else
         printf("Fail\n");
 
+    // Test Number Of Digits
+    printf("Testing numberOfDigits() function: ");
+    if (numberOfDigits(12345678901) == 11 && numberOfDigits(0) == 1 && numberOfDigits(-11568) == 5)
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
     // Test even number detection
     printf("Testing isEven() function: ");
     if (isEven(10) == true && isEven(9) == false)
