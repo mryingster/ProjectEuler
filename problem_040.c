@@ -21,7 +21,7 @@ int main()
         // Add digit to array in reverse order
         while (tmpCount > 0)
         {
-            fraction[count+tmpCount-1] = tmpNum % 10;
+            fraction[count+tmpCount] = tmpNum % 10;
             tmpNum /= 10;
             tmpCount--;
         }
@@ -30,9 +30,9 @@ int main()
     }
 
     // Perform the multiplication
-    number = fraction[0] *   fraction[9] *    fraction[99] *
-             fraction[999] * fraction[9999] * fraction[99999] *
-             fraction[999999];
+    number = fraction[1] *    fraction[10] *    fraction[100] *
+             fraction[1000] * fraction[10000] * fraction[100000] *
+             fraction[1000000];
 
     printf("Total: %lu\n", number);
 
