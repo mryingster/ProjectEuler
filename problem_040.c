@@ -2,6 +2,7 @@
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
 #include "ceuler.h"
+#include <stdbool.h>
 
 int main()
 {
@@ -11,17 +12,16 @@ int main()
 
     unsigned long number = 1;
     unsigned long count  = 0;
-    int fraction[1000100]={};
+    int total = 1;
 
-    // Fill up array with sequential integers
     while (count < 1000000)
     {
         unsigned long tmpNum   = number;
         unsigned long tmpCount = numberOfDigits(number);
-        // Add digit to array in reverse order
         while (tmpCount > 0)
         {
-            fraction[count+tmpCount] = tmpNum % 10;
+            if ( powerOf(count+tmpCount, 10) == true)
+                total *= tmpNum % 10;
             tmpNum /= 10;
             tmpCount--;
         }
@@ -29,12 +29,7 @@ int main()
         number++;
     }
 
-    // Perform the multiplication
-    number = fraction[1] *    fraction[10] *    fraction[100] *
-             fraction[1000] * fraction[10000] * fraction[100000] *
-             fraction[1000000];
-
-    printf("Total: %lu\n", number);
+    printf("Total: %d\n", total);
 
     return 0;
 }
