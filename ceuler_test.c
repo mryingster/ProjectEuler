@@ -50,6 +50,13 @@ int main()
     else
         printf("Fail\n");
 
+    // Test power check
+    printf("Testing powerOf() function: ");
+    if (powerOf(2048, 2) == true && powerOf(73, 12) == false)
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
     // Test Number Of Digits
     printf("Testing numberOfDigits() function: ");
     if (numberOfDigits(12345678901) == 11 && numberOfDigits(0) == 1 && numberOfDigits(-11568) == 5)

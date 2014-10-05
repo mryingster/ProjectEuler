@@ -74,6 +74,18 @@ bool isPandigital(long number)
     return true;
 }
 
+bool powerOf(long long number, int power)
+{
+    while ( number > 1 )
+    {
+        if (number % power == 0)
+            number /= power;
+        else
+            return false;
+    }
+    return true;
+}
+
 int digitFactorial(int input)
 {
     switch (input)
