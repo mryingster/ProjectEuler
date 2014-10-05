@@ -6,9 +6,17 @@
 
 int main()
 {
+    int number = 0;
+    int count = 0;
+
     // Test prime calculation
     printf("Testing isPrime() function: ");
-    if (isPrime(53) == true && isPrime(42) == false)
+    for (number = 2 ; number < 1000 ; number++)
+    {
+        if (isPrime(number) == true)
+            count++;
+    }
+    if (count == 168 && isPrime(104743) == true)
         printf("Pass\n");
     else
         printf("Fail\n");

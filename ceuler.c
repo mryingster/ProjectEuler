@@ -4,9 +4,12 @@
 bool isPrime(int input)
 {
     int index;
-    if (input == 2) return true;
+    int search = sqrt(input);
 
-    for (index=2 ; index<sqrt(input) ; index++)
+    if (input == 2) return true;
+    if (input % 2 == 0) return false;
+
+    for (index=3 ; index<=search ; index+=2)
       if (input % index == 0)
           return false;
 
@@ -48,6 +51,7 @@ bool isPalindromic(int input)
 bool isPandigital(long number)
 {
     bool digits[10] = {false};
+    int count = 0;
 
     // Decompose number
     while (number > 0)
@@ -57,7 +61,10 @@ bool isPandigital(long number)
             return false;
         digits[digit] = true;
         number /= 10;
+        count++;
     }
+
+    if (count != 9) return false;
 
     // Check that each digit is used once
     short index;
