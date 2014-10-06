@@ -64,11 +64,9 @@ bool isPandigital(long number)
         count++;
     }
 
-    if (count != 9) return false;
-
     // Check that each digit is used once
     short index;
-    for (index = 1 ; index < 10 ; index++ )
+    for (index = 1 ; index <= count ; index++ )
         if ( digits[index] == false )
             return false;
     return true;
