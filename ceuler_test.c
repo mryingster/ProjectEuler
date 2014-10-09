@@ -2,7 +2,7 @@
 // Copyright (c) 2014 Michael Caldwell
 
 #include <stdio.h>
-#include <ceuler.h>
+#include "ceuler.h"
 
 int main()
 {
@@ -70,6 +70,14 @@ int main()
         printf("Pass\n");
     else
         printf("Fail\n");
+
+    // Test word score
+    printf("Testing wordScore() function: ");
+    if (wordScore("ABC", 3) == 6 && wordScore("", 0) == 0)
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
 
     return 0;
 }

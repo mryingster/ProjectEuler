@@ -12,5 +12,5 @@ bool powerOf(long long number, int power);
 int  digitFactorial(int input);
 int  numberOfDigits(long long number);
 bool isEven(int anumber);
-
+int wordScore(char *word, int length);
 #endif

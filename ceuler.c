@@ -117,3 +117,28 @@ bool isEven(int anumber)
         return true;
     return false;
 }
+
+int wordScore(char *word, int length)
+{
+    int index, score = 0;
+    for (index=0; index<length; index++)
+    {
+        if (word[index] == '\0') break;
+        //If upper case
+        if (word[index] >= 'A' && word[index] <= 'Z')
+        {
+            score += word[index] - 'A' + 1;
+            continue;
+        }
+
+        //If lower case
+        if (word[index] >= 'a' && word[index] <= 'z')
+        {
+            score += word[index] - 'a' + 1;
+            continue;
+        }
+        // out of range
+        continue;
+    }
+    return score;
+}
