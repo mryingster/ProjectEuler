@@ -1,22 +1,12 @@
-// -*- compile-command: "gcc -o problem_042 problem_042.c -Wall" -*-
+// -*- compile-command: "gcc -o problem_042 problem_042.c ceuler.c -Wall" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "ceuler.h"
 
 FILE *wordFile;
 const int maxWordSize = 80;
-
-int wordScore(char word[maxWordSize])
-{
-    int i, score = 0;
-    for (i=0; i<maxWordSize; i++)
-    {
-        if (word[i] == '\0') break;
-        score += word[i] - 'A' + 1;
-    }
-    return score;
-}
 
 int main()
 {
@@ -29,7 +19,7 @@ int main()
     int ch;
     int total = 0;
 
-    wordFile = fopen ("problem_022.txt", "rt");
+    wordFile = fopen ("problem_042.txt", "rt");
 
     // Read in words to array
     while((ch = fgetc(wordFile)))
@@ -61,7 +51,7 @@ int main()
     int wordMax = wordIndex;
     for(wordIndex=0; wordIndex <= wordMax; wordIndex++)
     {
-        int score = wordScore(words[wordIndex]);
+        int score = wordScore(words[wordIndex], maxWordSize);
         for (triIndex=0 ; triIndex<100 ; triIndex++)
         {
             if (score == triangles[triIndex])
