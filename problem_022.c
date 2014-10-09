@@ -1,22 +1,12 @@
-// -*- compile-command: "gcc -o problem_022 problem_022.c -Wall" -*-
+// -*- compile-command: "gcc -o problem_022 problem_022.c ceuler.c -Wall" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "ceuler.h"
 
 FILE *nameFile;
 const int maxNameSize = 80;
-
-int nameScore(char name[maxNameSize])
-{
-    int i, score = 0;
-    for (i=0; i<maxNameSize; i++)
-    {
-        if (name[i] == '\0') break;
-        score += name[i] - 'A' + 1;
-    }
-    return score;
-}
 
 int compare(const void *a, const void *b)
 {
@@ -63,10 +53,7 @@ int main()
     // Score names
     int index = 0;
     for(index=0; index <= nameIndex; index++)
-    {
-        //printf("%s %d %d\n", names[index], index, nameScore(names[index]));
-        score += (index + 1) * nameScore(names[index]);
-    }
+        score += (index + 1) * wordScore(names[index], maxNameSize);
 
     printf("Total name score: %d\n", score);
     return 0;
