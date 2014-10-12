@@ -1,17 +1,8 @@
-// -*- compile-command: "gcc -o problem_044 problem_044.c -Wall -lm" -*-
+// -*- compile-command: "gcc -o problem_044 problem_044.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
-#include <math.h>
-#include <stdbool.h>
 #include <stdlib.h>
-
-bool isPentagonal(int number)
-{
-    long double check = (sqrt(24*number+1)+1)/6;
-    int check2 = check;
-    if (check == check2) return true;
-    return false;
-}
+#include "ceuler.h"
 
 int main()
 {
@@ -59,7 +50,7 @@ int main()
         }
         if (found != 0) break;
     }
-    printf("Smallest difference: %d", found);
+    printf("Smallest difference: %d\n", found);
 
     return 0;
 }
