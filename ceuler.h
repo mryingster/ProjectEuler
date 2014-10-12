@@ -8,6 +8,7 @@ bool isPrime(int input);
 bool isPrimeOpt(int input, int *primes);
 bool isPalindromic(int input);
 bool isPandigital(long number);
+bool isPentagonal(int number);
 bool powerOf(long long number, int power);
 int  digitFactorial(int input);
 int  numberOfDigits(long long number);

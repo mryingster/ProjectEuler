@@ -72,6 +72,14 @@ bool isPandigital(long number)
     return true;
 }
 
+bool isPentagonal(int number)
+{
+    long double check = (sqrt(24*number+1)+1)/6;
+    int check2 = check;
+    if (check == check2) return true;
+    return false;
+}
+
 bool powerOf(long long number, int power)
 {
     while ( number > 1 )

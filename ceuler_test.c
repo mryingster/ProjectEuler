@@ -43,6 +43,13 @@ int main()
     else
         printf("Fail\n");
 
+    // Test pentagonal number
+    printf("Testing isPentagonal() function: ");
+    if (isPentagonal(5482660) == true && isPentagonal(5482661) == false)
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
     // Test digit factorial
     printf("Testing digitFactorial() function: ");
     if (digitFactorial(9) == 362880 && digitFactorial(10) == 0)
