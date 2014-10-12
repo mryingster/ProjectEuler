@@ -43,9 +43,24 @@ int main()
     else
         printf("Fail\n");
 
+    // Test triangle number
+    count = 0;
+    printf("Testing isTriangle() function: ");
+    for (number=0 ; number<=10000; number++)
+        if (isTriangle(number) == true)
+            count++;
+    if ( count == 140 )
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
     // Test pentagonal number
+    count = 0;
     printf("Testing isPentagonal() function: ");
-    if (isPentagonal(5482660) == true && isPentagonal(5482661) == false)
+    for (number=0 ; number<=10000; number++)
+        if (isPentagonal(number) == true)
+            count++;
+    if ( count == 81 )
         printf("Pass\n");
     else
         printf("Fail\n");
