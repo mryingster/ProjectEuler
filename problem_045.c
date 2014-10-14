@@ -6,6 +6,9 @@
 
 int main()
 {
+    printf("Project Euler - Problem 45:\n"
+           "Find the next triangle number after 40755 that is also pentagonal and hexagonal.\n\n");
+
     long long number  = 40755; // Starting Triangle number
     int triHelp = 286;
 
