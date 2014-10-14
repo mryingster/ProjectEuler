@@ -89,16 +89,21 @@ bool isTriangle(int number)
 {
     if (number == 0) return false;
     long double check = (sqrt(8*number+1)-1)/2;
-    int check2 = check;
-    if (check == check2) return true;
+    if (check == (int)check) return true;
     return false;
 }
 
 bool isPentagonal(int number)
 {
     long double check = (sqrt(24*number+1)+1)/6;
-    int check2 = check;
-    if (check == check2) return true;
+    if (check == (int)check) return true;
+    return false;
+}
+
+bool isHexagonal(int number)
+{
+    long double check = (sqrt(8*number+1)+1)/4;
+    if (check == (int)check) return true;
     return false;
 }
 
