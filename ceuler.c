@@ -85,25 +85,25 @@ bool isPandigital(long number)
     return true;
 }
 
-bool isTriangle(int number)
+bool isTriangle(long long number)
 {
     if (number == 0) return false;
     long double check = (sqrt(8*number+1)-1)/2;
-    if (check == (int)check) return true;
+    if (check == (long long)check) return true;
     return false;
 }
 
-bool isPentagonal(int number)
+bool isPentagonal(long long number)
 {
     long double check = (sqrt(24*number+1)+1)/6;
-    if (check == (int)check) return true;
+    if (check == (long long)check) return true;
     return false;
 }
 
-bool isHexagonal(int number)
+bool isHexagonal(long long number)
 {
     long double check = (sqrt(8*number+1)+1)/4;
-    if (check == (int)check) return true;
+    if (check == (long long)check) return true;
     return false;
 }
 
