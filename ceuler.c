@@ -64,11 +64,24 @@ bool isPandigital(long number)
         count++;
     }
 
+    // Reject numbers larger than 10 digits
+    if (count > 10) return false;
+
+    // Include 0 in check of 10 digit numbers
+    short start = 1;
+    if (count == 10)
+    {
+        start = 0;
+        count = 9;
+    }
+
     // Check that each digit is used once
     short index;
-    for (index = 1 ; index <= count ; index++ )
+    for (index = start ; index <= count ; index++ )
+    {
         if ( digits[index] == false )
             return false;
+    }
     return true;
 }
 
