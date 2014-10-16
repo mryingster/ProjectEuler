@@ -3,35 +3,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-unsigned long long bigExponent(const int number)
-{
-    unsigned long long result = number;
-    int counter = number;
-
-    while (counter > 1)
-    {
-        result *= number;
-        result %= 10000000000;
-        counter--;
-    }
-
-    return result;
-}
-
 int main()
 {
     printf("Project Euler - Problem 48:\n"
-           "Find the last 10 digits of the series, 1^1 + 2^2 + 3^3 + ... + 1000^1000.");
+           "Find the last ten digits of the series, 1^1 + 2^2 + 3^3 + ... + 1000^1000.\n\n");
 
-    unsigned long long number = 0;
+    unsigned long long total  = 0;
     int index;
 
     for (index=1; index<=1000; index++)
     {
-        number += bigExponent(index);
-        number %= 10000000000;
+        unsigned long long number = 1;
+        int counter = index;
+
+        while (counter > 0)
+        {
+            number *= index;
+            number %= 10000000000;
+            counter--;
+        }
+
+        total += number;
+        total %= 10000000000;
     }
 
-    printf("Last ten digits: %llu\n", number);
+    printf("Last ten digits: %llu\n", total);
     return 0;
 }
