@@ -93,6 +93,14 @@ bool isTriangle(long long number)
     return false;
 }
 
+bool isSquare(long long number)
+{
+    if (number == 0) return false;
+    long double check = sqrt(number);
+    if (check == (long long)check) return true;
+    return false;
+}
+
 bool isPentagonal(long long number)
 {
     long double check = (sqrt(24*number+1)+1)/6;
@@ -103,6 +111,19 @@ bool isPentagonal(long long number)
 bool isHexagonal(long long number)
 {
     long double check = (sqrt(8*number+1)+1)/4;
+    if (check == (long long)check) return true;
+    return false;
+}
+
+bool isHeptagonal(long long number)
+{
+    long double check = (sqrt(40*number+9)+3)/10;
+    if (check == (long long)check) return true;
+    return false;
+}
+bool isOctagonal(long long number)
+{
+    long double check = (sqrt(3*number+1)+1)/3;
     if (check == (long long)check) return true;
     return false;
 }

@@ -60,6 +60,17 @@ int main()
     else
         printf("Fail\n");
 
+    // Test square number
+    count = 0;
+    printTest("isSquare()");
+    for (number=0 ; number<=10000; number++)
+        if (isSquare(number) == true)
+            count++;
+    if ( count == 100 )
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
     // Test pentagonal number
     count = 0;
     printTest("isPentagonal()");
@@ -78,6 +89,28 @@ int main()
         if (isHexagonal(number) == true)
             count++;
     if ( count == 70 )
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
+    // Test heptagonal number
+    count = 0;
+    printTest("isHeptagonal()");
+    for (number=0 ; number<=10000; number++)
+        if (isHeptagonal(number) == true)
+            count++;
+    if ( count == 63 )
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
+    // Test octagonal number
+    count = 0;
+    printTest("isOctagonal()");
+    for (number=0 ; number<=10000; number++)
+        if (isOctagonal(number) == true)
+            count++;
+    if ( count == 58 )
         printf("Pass\n");
     else
         printf("Fail\n");
