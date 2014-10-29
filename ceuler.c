@@ -198,3 +198,14 @@ int wordScore(char *word, int length)
     }
     return score;
 }
+
+unsigned numSignature(unsigned long long number)
+{
+    unsigned out = 0;
+    while (number > 0)
+    {
+        out += 1 * pow(10, number % 10);
+        number /= 10;
+    }
+    return out;
+}

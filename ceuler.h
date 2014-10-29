@@ -19,4 +19,5 @@ int  digitFactorial(int input);
 int  numberOfDigits(long long number);
 bool isEven(int anumber);
 int wordScore(char *word, int length);
+unsigned numSignature(unsigned long long number);
 #endif

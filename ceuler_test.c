@@ -150,6 +150,13 @@ int main()
     else
         printf("Fail\n");
 
+    // Test number signature
+    printTest("numSignature()");
+    if (numSignature(112233445566777) == 32222220 && numSignature(0) == 0)
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
 
     return 0;
 }
