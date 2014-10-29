@@ -49,6 +49,6 @@ int main ()
                 biggestsum = sum;
         }
     }
-    printf("Biggest digital sum = %d\n", biggestsum); //972
+    printf("Biggest digital sum: %d\n", biggestsum);
     return 0;
 }
