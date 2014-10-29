@@ -5,17 +5,6 @@
 #include <string.h>
 #include "ceuler.h"
 
-unsigned int numSignature(int number)
-{
-    int out = 0;
-    while (number > 0)
-    {
-        out += 1 * pow(10, number % 10);
-        number /= 10;
-    }
-    return out;
-}
-
 int main()
 {
     printf("Project Euler - Problem 49:\n"
