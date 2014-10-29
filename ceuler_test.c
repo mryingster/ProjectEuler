@@ -157,6 +157,12 @@ int main()
     else
         printf("Fail\n");
 
+    // Test number reverse
+    printTest("reverseNum()");
+    if (reverseNum(123321) == 123321 && reverseNum(123456789) == 987654321)
+        printf("Pass\n");
+    else
+        printf("Fail\n");
 
     return 0;
 }

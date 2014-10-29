@@ -209,3 +209,23 @@ unsigned numSignature(unsigned long long number)
     }
     return out;
 }
+
+unsigned long long reverseNum(unsigned long long input)
+{
+    unsigned long long output = input;
+    int count = 0;
+
+    while (output > 0)
+    {
+        output /= 10;
+        count++;
+    }
+
+    while (input > 0)
+    {
+        output += input % 10 * pow(10, --count);
+        input /= 10;
+    }
+
+    return output;
+}

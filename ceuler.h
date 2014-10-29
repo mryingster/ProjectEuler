@@ -20,4 +20,5 @@ int  numberOfDigits(long long number);
 bool isEven(int anumber);
 int wordScore(char *word, int length);
 unsigned numSignature(unsigned long long number);
+unsigned long long reverseNum(unsigned long long input);
 #endif
