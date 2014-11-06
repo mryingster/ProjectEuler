@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
-#include <ceuler.h>
+#include "ceuler.h"
 
 bool inArray(int value, int *array)
 {

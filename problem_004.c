@@ -2,7 +2,7 @@
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
 #include <stdbool.h>
-#include <ceuler.h>
+#include "ceuler.h"
 
 int main()
 {

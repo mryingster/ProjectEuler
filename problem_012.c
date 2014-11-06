@@ -1,7 +1,7 @@
 // -*- compile-command: "gcc -o problem_012 problem_012.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
-#include <ceuler.h>
+#include "ceuler.h"
 
 int findDivisors(int input, int *primes, int primesToFind)
 {
