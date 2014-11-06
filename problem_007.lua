@@ -5,23 +5,20 @@ print("What is the 10,001st prime number?\n")
 
 function isPrime (number)
    limit = math.floor(math.sqrt(number))
-   if (number % 2 == 1) then
-      for index = 3, limit , 2 do
-         if (number % index == 0) then
-            return false
-         end
+   for index = 3, limit , 2 do
+      if (number % index == 0) then
+         return false
       end
-      return true
    end
-   return false
+   return true
 end
 
-prime=2
-number=2
-count=1
+prime=3
+number=3
+count=2
 
 while (count < 10001) do
-   number = number + 1
+   number = number + 2
    if isPrime(number) == true then
       prime = number
       count = count + 1
