@@ -1,19 +1,8 @@
-// -*- compile-command: "gcc -o problem_062 problem_062.c -Wall -lm" -*-
+// -*- compile-command: "gcc -o problem_062 problem_062.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
-#include <math.h>
+#include "ceuler.h"
 #include <stdbool.h>
-
-unsigned numSignature(unsigned long long number)
-{
-    unsigned out = 0;
-    while (number > 0)
-    {
-        out += 1 * pow(10, number % 10);
-        number /= 10;
-    }
-    return out;
-}
 
 int main(){
     printf("Project Euler - Problem 62:\n"
