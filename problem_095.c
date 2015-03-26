@@ -11,34 +11,32 @@ struct divisors{
     int len;
 };
 
-int divisorSum(int n, int primes[], int len)
+int divisorSum(const int num, int primes[], int len)
 {
     // Check if number is prime
-    if (isPrime(n)) return 1;
+    if (isPrime(num)) return 1;
 
+    int n = num;
     int sum = 1;
-    int num = n;
-    int index = 0;
-    int factors[50000] = {};
 
     // Get prime factors
-    while (n > 1)
+    int power = 0;
+    int index = 0;
+    while (n > 0)
     {
         if (n % primes[index] == 0)
         {
-            factors[index]++;
+            power++;
             n /= primes[index];
             continue;
         }
-        index++;
-    }
 
-    // Construct Sum using prime factors
-    for (int i=0; i<len; i++)
-    {
-        if (factors[i] == 0) continue;
-        if (factors[i] == 1) sum *= primes[i]+1;
-        if (factors[i] > 1)  sum *= (pow(primes[i], factors[i]+1)-1)/(primes[i]-1);
+        // Update sum, and move on to next prime
+        if (power == 1) sum *= primes[index]+1;
+        if (power > 1)  sum *= (pow(primes[index], power+1)-1)/(primes[index]-1);
+        if (n == 1) break;
+        index++;
+        power = 0;
     }
 
     // Don't count self as divisor
@@ -65,10 +63,7 @@ int main()
     static divisors divisors[1000000];
     int searchLen = sizeof(divisors)/sizeof(divisors[0]);
     for (int i = 0; i < searchLen; i++)
-    {
-        //printf("%d, ", i);
         divisors[i].sum = divisorSum(i, primes, index);
-    }
     printf("Divisors table populated.\n");
 
 
