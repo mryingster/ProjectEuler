@@ -27,11 +27,22 @@ void printPuzzle(puzzle g)
     printf("\n");
     for (int i=0; i<9; i++)
     {
-        printf(" %d %d %d | %d %d %d | %d %d %d \n",
-               g.cell[i][0][0], g.cell[i][1][0], g.cell[i][2][0],
-               g.cell[i][3][0], g.cell[i][4][0], g.cell[i][5][0],
-               g.cell[i][6][0], g.cell[i][7][0], g.cell[i][8][0]);
-        if ((i + 1) % 3 == 0 && i < 7)
+        for (int j=0; j<9; j++)
+        {
+            // Print number or blank if value is 0
+            if (g.cell[i][j][0] == 0)
+                printf("  ");
+            else
+                printf(" %d", g.cell[i][j][0]);
+
+            // Print vertical separator or newline
+            if ((j+1) % 3 == 0 && j < 8)
+                printf(" |");
+            if (j == 8)
+                printf("\n");
+         }
+        // Print horizontal separator
+        if ((i + 1) % 3 == 0 && i < 8)
             printf("-------+-------+-------\n");
     }
     printf("\n");
@@ -292,6 +303,7 @@ int main()
     for (int i=0; i<50; i++)
     {
         if (verbose == true) printf("Grid: %d\n", i+1);
+        if (verbose == true) printPuzzle(sudoku[i]);
 
         // Simple deduction first
         solveGrid(&sudoku[i]);
