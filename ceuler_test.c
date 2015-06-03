@@ -15,6 +15,10 @@ int main()
     int number = 0;
     int count = 0;
 
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
+
     // Test prime calculation
     printTest("isPrime()");
     for (number = 2 ; number < 1000 ; number++)
@@ -163,6 +167,9 @@ int main()
         printf("Pass\n");
     else
         printf("Fail\n");
+
+    // Test time tracking
+    printElapsedTime(start);
 
     return 0;
 }

@@ -1,19 +1,30 @@
 #include <math.h>
+#include <stdlib.h>
 #include <stdbool.h>
+#include <sys/time.h>
+#include <ctype.h>
+#include <stdio.h>
 
 bool isPrime(int input)
 {
     int index;
-    int search = sqrt(input);
 
     if (input == 2) return true;
     if (input % 2 == 0) return false;
 
-    for (index=3 ; index<=search ; index+=2)
+    for (index=3 ; index * index <= input ; index+=2)
       if (input % index == 0)
           return false;
 
     return true;
+}
+
+unsigned long long nextPrime(unsigned long long input)
+{
+    while (input++)
+        if (isPrime(input))
+            return input;
+    return 0;
 }
 
 bool isPrimeOpt(int input, int *primes)
@@ -228,4 +239,22 @@ unsigned long long reverseNum(unsigned long long input)
     }
 
     return output;
+}
+
+void printElapsedTime(struct timeval start)
+{
+    struct timeval now;
+    gettimeofday(&now, NULL);
+
+    unsigned long long elapsed_microseconds = (now.tv_sec * 1000000ULL + now.tv_usec) - (start.tv_sec * 1000000ULL + start.tv_usec);
+    unsigned long long elapsed_milliseconds = elapsed_microseconds / 1000;
+
+    // Calculate time Time
+    int milliseconds = elapsed_milliseconds % 1000;
+    int seconds      = elapsed_milliseconds / 1000 % 60;
+    int minutes      = elapsed_milliseconds / 1000 / 60 % 60;
+    int hours        = elapsed_milliseconds / 1000 / 60 / 60 % 24;
+
+    printf("Elapsed Time: %02i:%02i:%02i.%03i\n",
+           hours, minutes, seconds, milliseconds);
 }

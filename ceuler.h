@@ -2,9 +2,14 @@
 #define CEULER_H
 
 #include <math.h>
+#include <stdlib.h>
 #include <stdbool.h>
+#include <sys/time.h>
+#include <ctype.h>
+#include <stdio.h>
 
 bool isPrime(int input);
+unsigned long long nextPrime(unsigned long long input);
 bool isPrimeOpt(int input, int *primes);
 bool isPalindromic(int input);
 bool isPandigital(long number);
@@ -21,4 +26,5 @@ bool isEven(int anumber);
 int wordScore(char *word, int length);
 unsigned numSignature(unsigned long long number);
 unsigned long long reverseNum(unsigned long long input);
+void printElapsedTime(struct timeval start);
 #endif
