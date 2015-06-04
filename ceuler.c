@@ -42,6 +42,27 @@ bool isPrimeOpt(int input, int *primes)
     return true;
 }
 
+void primeSieve(int *primes, int len)
+{
+    int index = 0, max = len*15;
+    bool *sieve = malloc(max*sizeof(bool));
+
+    for (int i=2; i<max; i++) sieve[i] = true;
+    sieve[0] = false;
+    sieve[1] = false;
+
+    for (int i=2; index<len; i++)
+        if (sieve[i] == true)
+        {
+            primes[index++] = i;
+            int n = 2;
+            while (n*i < max)
+                sieve[i*n++] = false;
+        }
+
+    free(sieve);
+}
+
 bool isPalindromic(int input)
 {
     int decompose = input;

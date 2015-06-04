@@ -11,6 +11,7 @@
 bool isPrime(int input);
 unsigned long long nextPrime(unsigned long long input);
 bool isPrimeOpt(int input, int *primes);
+void primeSieve(int *primes, int max);
 bool isPalindromic(int input);
 bool isPandigital(long number);
 bool isTriangle(long long number);

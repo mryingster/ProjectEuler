@@ -1,4 +1,4 @@
-// -*- compile-command: "gcc -o ceuler_test ceuler_test.c ceuler.c -Wall -O3 -lm" -*-
+// -*- compile-command: "gcc -std=c99 -o ceuler_test ceuler_test.c ceuler.c -Wall -O3 -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 
 #include <stdio.h>
@@ -35,6 +35,23 @@ int main()
     printTest("isPrimeOpt()");
     int primeArray[15]={2,3,5,7,11,13,17,19,23,29,31,37,41,43,47};
     if (isPrimeOpt(53, primeArray) == true && isPrimeOpt(42, primeArray) == false)
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
+    // Test next prime function
+    printTest("nextPrime()");
+    if (nextPrime(47) == 53 && nextPrime(50) == 53)
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
+    // Test prime sieve function
+    printTest("primeSieve()");
+    int primes[10000] = {};
+    int max = 10000;
+    primeSieve(primes, max);
+    if (primes[9999] == 104729 && primes[9] == 29)
         printf("Pass\n");
     else
         printf("Fail\n");
