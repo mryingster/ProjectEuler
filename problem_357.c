@@ -5,7 +5,7 @@
 
 bool isPrimeGen(int n)
 {
-    for (int d=1; d<n+1/2; d++)
+    for (int d=1; d<sqrt(n)+1; d++)
         if (n % d == 0)
             if (isPrime(d+(n/d)) != true)
                 return false;
