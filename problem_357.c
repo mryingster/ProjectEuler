@@ -4,11 +4,11 @@
 #include <stdlib.h>
 #include "ceuler.h"
 
-bool isPrimeGen(int n)
+bool isPrimeGen(int n, bool *primes)
 {
     for (int d=1; d<=sqrt(n); d++)
         if (n % d == 0)
-            if (isPrime(d+(n/d)) != true)
+            if (primes[d+n/d] != true)
                 return false;
 
     return true;
@@ -27,16 +27,37 @@ int main()
     unsigned long long sum = 1;
     bool debug = false;
 
-    // Now solve
+    // Generate primes using sieve
+    bool *primes = malloc(limit*sizeof(bool));
+    for (int i=2; i<limit; i++)
+        primes[i] = true;
+    primes[0] = false;
+    primes[1] = false;
+
+    for (int i=2; i<limit; i++)
+        if (primes[i] == true)
+        {
+            int n = 2;
+            while (n*i < limit)
+                primes[i*n++] = false;
+        }
+
+    if (debug == true)
+    {
+        printf("Prime table generated.\n");
+        printElapsedTime(start);
+    }
+
+    // Now solve problem
     int candidate = 0;
     for (int n=0; candidate<limit; n++)
     {
-        candidate = 4 * n + 2;             // Pattern 1
-        if (isPrime(candidate + 1))        // Pattern 2
+        candidate = 4 * n + 2;                 // Pattern 1
+        if (primes[candidate + 1] == true)     // Pattern 2
         {
-            if (isPrime(candidate/2+2))    // Pattern 3
+            if (primes[candidate/2+2] == true) // Pattern 3
             {
-                if (isPrimeGen(candidate)) // Verify number by brute force
+                if (isPrimeGen(candidate, primes)) // Verify number by brute force
                 {
                     sum += candidate;
                     if (debug == true)
