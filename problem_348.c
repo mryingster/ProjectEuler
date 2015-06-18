@@ -18,6 +18,7 @@ int main()
     short *palindromes = malloc(limit*sizeof(short));
 
     bool debug = false;
+    int sum = 0, count = 0;
 
     // Count all the factors for all numbers under limit
     for (int i=2; i<lim; i++)
@@ -25,6 +26,7 @@ int main()
         for (int n=0; n<i; n++)
         {
             unsigned long long number = pow(i, 2) + pow(n, 3);
+
             if (number > limit) break;
 
             if (isPalindromic(number))
@@ -32,19 +34,27 @@ int main()
                 if (debug == true)
                     printf("%d^2 + %d^3 = %llu\n", i, n, number);
                 palindromes[number]++;
+
+                // Keep track of palindromes that can be made 4 ways
+                if (palindromes[number] == 4)
+                {
+                    count++;
+                    sum += number;
+                }
+
+                // Forget about palindromes that can be made more than 4 ways
+                if (palindromes[number] == 5)
+                {
+                    count--;
+                    sum -= number;
+                }
+
+                // If we've found enough, exit!
+                if (count == 5) break;
             }
         }
+        if (count == 5) break;
     }
-
-    int sum = 0, count = 0;
-    for (int i=2; i<limit; i++)
-        if (palindromes[i] == 4)
-        {
-            if (debug == true)
-                printf("%d: %d\n", i, palindromes[i]);
-            sum += i;
-            if (count == 5) break;
-        }
 
     printf("Sum: %d\n", sum);
     printElapsedTime(start);
