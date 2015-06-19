@@ -7,7 +7,7 @@
 int main()
 {
     printf("Project Euler - Problem 348:\n"
-           "Find the sum of the 5 smallest pamindromic numbers that be expressed exactly 4 ways as the sum of a square and a cube.\n\n");
+           "Find the sum of the 5 smallest palindromic numbers that be expressed exactly 4 ways as the sum of a square and a cube.\n\n");
 
     // Begin time tracking
     struct timeval start;
