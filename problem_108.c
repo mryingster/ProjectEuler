@@ -41,10 +41,11 @@ int main()
     primeSieve(primes, nprime);
 
     unsigned long long n = 2;
-    int d = 0;
     bool debug = false;
 
-    while (d/2<1000)
+    int d = 0;
+    int limit = 1000;
+    while (d/2 < limit)
     {
         n++;
         d = divisors(n, primes, nprime);
@@ -55,5 +56,6 @@ int main()
     printf("n=%llu\n", n);
     printElapsedTime(start);
 
+    free(primes);
     return 0;
 }
