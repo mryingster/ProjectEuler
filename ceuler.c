@@ -27,21 +27,6 @@ unsigned long long nextPrime(unsigned long long input)
     return 0;
 }
 
-bool isPrimeOpt(int input, int *primes)
-{
-    int index = 0;
-    if (input == 2) return true;
-
-    while (primes[index] != 0 && primes[index] <= sqrt(input))
-    {
-        if (input % primes[index] == 0)
-            return false;
-        index++;
-    }
-
-    return true;
-}
-
 void primeSieve(int *primes, int len)
 {
     int index = 0, max = len*15;
