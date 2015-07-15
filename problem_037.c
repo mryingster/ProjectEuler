@@ -1,4 +1,4 @@
-// -*- compile-command: "gcc -o problem_037 problem_037.c ceuler.c -Wall -lm" -*-
+// -*- compile-command: "gcc -std=c99 -o problem_037 problem_037.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
 #include <stdbool.h>
@@ -17,24 +17,23 @@ bool inArray(int value, int *array)
 
 int main()
 {
-    int index = 0;
-    int primes[500000] = {0};
-    int primeCount = 0;
-    unsigned long long sum = 0;
-
     printf("Project Euler - Problem 37:\n"
            "Find the sum of the only eleven primes that are both truncatable from left to right and right to left.\n\n");
 
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
+
+    int primes[100000] = {0};
+    int nprimes = sizeof(primes)/sizeof(int);
+    unsigned long long sum = 0;
+    bool debug = false;
+
     // Find primes
-    for (index=2 ; index<800000 ; index++)
-        if (isPrimeOpt(index, primes) == true)
-        {
-            primes[primeCount]=index;
-            primeCount++;
-        }
+    primeSieve(primes, nprimes);
 
     // Go through each prime and truncate
-    for (index=4 ; index<primeCount ; index++)
+    for (int index=4 ; index<nprimes ; index++)
     {
         bool truncatable = true;
         int leftTruncCount = 0;
@@ -81,12 +80,14 @@ int main()
         // Check if prime is eligible
         if (truncatable == true)
         {
-            //printf("%d\n", primes[index]); // DEBUG - Print valid primes
+            if (debug == true)
+                printf("%d\n", primes[index]);
             sum += primes[index];
         }
     }
 
     printf("Sum of primes: %llu\n", sum);
+    printElapsedTime(start);
 
     return 0;
 }
