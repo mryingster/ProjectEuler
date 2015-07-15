@@ -38,16 +38,19 @@ int main()
     printf("Project Euler - Problem 70:\n"
            "Find the value of n, 1 < n < 10^7, for which phi(n) is a permutation of n and the ratio n/phi(n) produces a minimum.\n\n");
 
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
+
     answer min = {0, 0, 2};
     const int max = 10000000;
     const int search_max = sqrt(max);
+    bool debug = false;
 
     // Populate primes
-    int primes[1000000] = {2}, c = 1;
-    int prime_size = sizeof(primes)/sizeof(primes[0]);
-    for (int n=3; n < 50000 && c < prime_size; n+=2)
-        if (isPrimeOpt(n, primes))
-            primes[c++] = n;
+    int primes[5000] = {0};
+    int nprimes = sizeof(primes)/sizeof(primes[0]);
+    primeSieve(primes, nprimes);
 
     for( int a = 100; primes[a] < search_max; a++)
     {
@@ -56,23 +59,23 @@ int main()
         {
             n = primes[a] * primes[b];
 
-            int phi = totient(n, primes, c, min.ratio);
+            int phi = totient(n, primes, nprimes, min.ratio);
             if ((float)n/(float)phi < min.ratio)
                 if (numSignature(n) == numSignature(phi))
                 {
                     min.ratio = (float)n/(float)phi;
                     min.number = n;
                     min.phi = phi;
-                    /*
-                    // DEBUG Print
-                    printf("(%d x %d) %d : %d (%F)\n",
-                           primes[a], primes[b],
-                           min.number, min.phi, min.ratio);
-                    */
+                    if (debug == true)
+                        printf("(%d x %d) %d : %d (%F)\n",
+                               primes[a], primes[b],
+                               min.number, min.phi, min.ratio);
                 }
         }
     }
 
     printf("Minimum: %d (Ratio: %F)\n", min.number, min.ratio);
+    printElapsedTime(start);
+
     return 0;
 }
