@@ -1,4 +1,4 @@
-// -*- compile-command: "gcc -o problem_047 problem_047.c ceuler.c -Wall -lm" -*-
+// -*- compile-command: "gcc -std=c99 -o problem_047 problem_047.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,6 +32,10 @@ int main()
     printf("Project Euler - Problem 47:\n"
            "What is the of four consecutive integers to have four distinct prime factors?\n\n");
 
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
+
     int primes[50000] = {};
     int primeIndex = 0;
     int composite = 1;
@@ -39,7 +43,7 @@ int main()
 
     while ( composite++ && count != 4 )
     {
-        if (isPrimeOpt(composite, primes) == true)
+        if (isPrime(composite) == true)
         {
             primes[primeIndex++] = composite;
             count = 0;
@@ -60,6 +64,7 @@ int main()
     }
 
     printf("First digit: %d\n", candidate);
+    printElapsedTime(start);
 
     return 0;
 }
