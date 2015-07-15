@@ -25,5 +25,6 @@ int main()
     printf("Sum of primes: %llu\n", sum);
     printElapsedTime(start);
 
+    free(primes);
     return 0;
 }
