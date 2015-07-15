@@ -24,6 +24,7 @@ bool powerOf(long long number, int power);
 int  digitFactorial(int input);
 int  numberOfDigits(long long number);
 bool isEven(int anumber);
+int gcd(int a, int b);
 int wordScore(char *word, int length);
 unsigned numSignature(unsigned long long number);
 unsigned long long reverseNum(unsigned long long input);

@@ -206,6 +206,18 @@ bool isEven(int anumber)
     return false;
 }
 
+int gcd(int a, int b)
+{
+    int temp;
+    while (b != 0)
+    {
+        temp = a % b;
+        a = b;
+        b = temp;
+    }
+    return a;
+}
+
 int wordScore(char *word, int length)
 {
     int index, score = 0;

@@ -164,6 +164,13 @@ int main()
     else
         printf("Fail\n");
 
+    // Test greatest common denominator
+    printTest("gcd()");
+    if (gcd(100, 121) == 1 && gcd(5280, 22352) == 176)
+        printf("Pass\n");
+    else
+        printf("Fail\n");
+
     // Test word score
     printTest("wordScore()");
     if (wordScore("ABC", 3) == 6 && wordScore("", 0) == 0)
