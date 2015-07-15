@@ -1,4 +1,4 @@
-// -*- compile-command: "gcc -o problem_046 problem_046.c ceuler.c -Wall -lm" -*-
+// -*- compile-command: "gcc -std=c99 -o problem_046 problem_046.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,13 +27,17 @@ int main()
     printf("Project Euler - Problem 46:\n"
            "What is the smallest odd, composite number that cannot be written as the sum of a prime and twice a square?\n\n");
 
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
+
     int primes[10000] = {};
     int primeIndex = 0;
     int composite = 1;
 
     while ( composite++ )
     {
-        if (isPrimeOpt(composite, primes) == true)
+        if (isPrime(composite) == true)
             primes[primeIndex++] = composite;
         else // is composite number
         {
@@ -43,6 +47,7 @@ int main()
     }
 
     printf("Smallest composite: %d\n", composite);
+    printElapsedTime(start);
 
     return 0;
 }
