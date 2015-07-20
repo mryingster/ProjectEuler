@@ -9,6 +9,7 @@ bool isPrime(int input)
 {
     int index;
 
+    if (input < 2) return false;
     if (input == 2) return true;
     if (input % 2 == 0) return false;
 

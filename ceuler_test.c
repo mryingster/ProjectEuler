@@ -26,7 +26,7 @@ int main()
         if (isPrime(number) == true)
             count++;
     }
-    if (count == 168 && isPrime(104743) == true)
+    if (count == 168 && isPrime(104743) == true && isPrime(1) == false)
         printf("Pass\n");
     else
         printf("Fail\n");
