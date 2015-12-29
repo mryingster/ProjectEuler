@@ -1,12 +1,16 @@
-// -*- compile-command: "gcc -o problem_002 problem_002.c -Wall" -*-
+// -*- compile-command: "gcc -std=c99 -o problem_002 problem_002.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
-#include <stdbool.h>
+#include "ceuler.h"
 
 int main()
 {
     printf("Project Euler - Problem 2:\n"
            "By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.\n\n");
+
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
 
     int previousNum = 0, nextNum = 0, currentNum = 1;
     int total = 0;
@@ -23,6 +27,7 @@ int main()
        }
 
     printf("Sum: %d\n", total);
+    printElapsedTime(start);
 
     return 0;
 }

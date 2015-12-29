@@ -1,7 +1,7 @@
-// -*- compile-command: "gcc -o problem_009 problem_009.c -Wall -lm" -*-
+// -*- compile-command: "gcc -std=c99 -o problem_009 problem_009.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
-#include <math.h>
+#include "ceuler.h"
 
 int main()
 {
@@ -10,6 +10,9 @@ int main()
     printf("Project Euler - Problem 9:\n"
            "There exists exactly one Pythagorean triplet for which a + b + c = 1000. Find the product abc.\n\n");
 
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
 
     int product = 0;
     int a = 1;
@@ -32,5 +35,7 @@ int main()
     }
 
     printf("Product: %d\n", product);
+    printElapsedTime(start);
+
     return 0;
 }
