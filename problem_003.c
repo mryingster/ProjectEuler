@@ -12,19 +12,16 @@ int main()
     struct timeval start;
     gettimeofday(&start, NULL);
 
-    unsigned long long bigNum = 600851475143;
-    int lastFactor = 0;
+    long long bigNum = 600851475143;
+    int divisor = 2;
 
-    for ( int i=2; i<10000; i++ )
-        if ( bigNum % i == 0 )
-	{
-            //printf("Factor Found: %i\n", i);
-            bigNum /= i;
-            lastFactor = i;
-            i = 2;
-	}
+    while ( divisor < bigNum )
+        if ( bigNum % divisor == 0 )
+            bigNum /= divisor;
+        else
+            divisor++;
 
-    printf("Largest factor found: %d\n", lastFactor);
+    printf("Largest factor found: %d\n", divisor);
     printElapsedTime(start);
 
     return 0;
