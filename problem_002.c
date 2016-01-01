@@ -12,19 +12,18 @@ int main()
     struct timeval start;
     gettimeofday(&start, NULL);
 
+    const int limit = 4000000;
     int previousNum = 0, nextNum = 0, currentNum = 1;
     int total = 0;
 
-    while (true)
+    while (currentNum < limit)
     {
         nextNum = previousNum + currentNum;
         previousNum = currentNum;
         currentNum = nextNum;
-        if ( currentNum >= 4000000 )
-            break;
         if ( currentNum % 2 == 0)
             total += currentNum;
-       }
+    }
 
     printf("Sum: %d\n", total);
     printElapsedTime(start);
