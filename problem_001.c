@@ -15,13 +15,8 @@ int main()
     int total = 0;
 
     for ( int number=0 ; number<1000 ; number++ )
-    {
-        if ( number % 3 == 0 )
-            total += number;
-        else
-            if ( number % 5 == 0 )
+        if ( number % 3 == 0 || number % 5 == 0 )
                 total += number;
-    }
 
     printf("Sum: %d\n", total);
     printElapsedTime(start);
