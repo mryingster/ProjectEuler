@@ -10,9 +10,10 @@ var d = 2
 
 while d < n {
     if n % d == 0 {
-       n /= d
+        n /= d
+    } else {
+        d++
     }
-    d++
 }
 
 print(d)
