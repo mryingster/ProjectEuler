@@ -1,5 +1,5 @@
 #!/usr/bin/xcrun swift
-// -*- compile-command: "swiftc problem_001.swift -o problem_001" -*-
+// -*- compile-command: "swiftc problem_002.swift -o problem_002" -*-
 // Copyright (c) 2016 Michael Caldwell
 
 print("Project Euler - Problem 2:")
