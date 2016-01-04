@@ -50,48 +50,49 @@ int main()
     const int searchSize = 4;
     bool debug = false;
 
-    //Horizontal
+    // Search grid for all possible solutions
     for (int y=0 ; y<gridYSize ; y++)
-        for (int x=0 ; x<=gridXSize - searchSize ; x++)
-        {
-            candidate = grid[y][x] * grid[y][x+1] * grid[y][x+2] * grid[y][x+3];
-            if (debug == true)
-                printf("%d\n", candidate);
-            if (candidate > largest)
-                largest = candidate;
-        }
-
-    //Vertical
-    for (int y=0 ; y<=gridYSize - searchSize ; y++)
         for (int x=0 ; x<gridXSize ; x++)
         {
-            candidate = grid[y][x] * grid[y+1][x] * grid[y+2][x] * grid[y+3][x];
-            if (debug == true)
-                printf("%d\n", candidate);
-            if (candidate > largest)
-                largest = candidate;
-        }
+            //Horizontal
+            if (x <= gridXSize - searchSize)
+            {
+                candidate = grid[y][x] * grid[y][x+1] * grid[y][x+2] * grid[y][x+3];
+                if (debug == true)
+                    printf("%d\n", candidate);
+                if (candidate > largest)
+                    largest = candidate;
+            }
 
-    //Diagonal down right
-    for (int y=0 ; y<=gridYSize - searchSize ; y++)
-        for (int x=0 ; x<=gridXSize - searchSize ; x++)
-        {
-            candidate = grid[y][x] * grid[y+1][x+1] * grid[y+2][x+2] * grid[y+3][x+3];
-            if (debug == true)
-                printf("%d\n", candidate);
-            if (candidate > largest)
-                largest = candidate;
-        }
+            //Vertical
+            if (y <= gridYSize - searchSize)
+            {
+                candidate = grid[y][x] * grid[y+1][x] * grid[y+2][x] * grid[y+3][x];
+                if (debug == true)
+                    printf("%d\n", candidate);
+                if (candidate > largest)
+                    largest = candidate;
+            }
 
-    //Diagonal down left
-    for (int y=searchSize-1 ; y<gridYSize ; y++)
-        for (int x=0 ; x<=gridXSize - searchSize ; x++)
-        {
-            candidate = grid[y][x] * grid[y-1][x+1] * grid[y-2][x+2] * grid[y-3][x+3];
-            if (debug == true)
-                printf("%d\n", candidate);
-            if (candidate > largest)
-                largest = candidate;
+            //Diagonal down right
+            if (y <= gridYSize - searchSize && x <= gridXSize - searchSize)
+            {
+                candidate = grid[y][x] * grid[y+1][x+1] * grid[y+2][x+2] * grid[y+3][x+3];
+                if (debug == true)
+                    printf("%d\n", candidate);
+                if (candidate > largest)
+                    largest = candidate;
+            }
+
+            //Diagonal down left
+            if (y <= gridYSize - searchSize && x >= searchSize)
+            {
+                candidate = grid[y][x] * grid[y+1][x-1] * grid[y+2][x-2] * grid[y+3][x-3];
+                if (debug == true)
+                    printf("%d\n", candidate);
+                if (candidate > largest)
+                    largest = candidate;
+            }
         }
 
     printf("Greatest product: %d\n", largest);
