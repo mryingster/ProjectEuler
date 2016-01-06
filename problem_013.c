@@ -1,18 +1,18 @@
-// -*- compile-command: "gcc -o problem_013 problem_013.c -Wall -lm" -*-
+// -*- compile-command: "gcc -std=c99 -o problem_013 problem_013.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
-#include <math.h>
+#include "ceuler.h"
 
 int main()
 {
     printf("Project Euler - Problem 13:\n"
            "Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.\n\n");
 
-    int col = 0, row = 0;
-    int index = 0;
-    long answer=0;
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
 
-    int myArray[100][50]={
+    int numArray[100][50]={
         {3,7,1,0,7,2,8,7,5,3,3,9,0,2,1,0,2,7,9,8,7,9,7,9,9,8,2,2,0,8,3,7,5,9,0,2,4,6,5,1,0,1,3,5,7,4,0,2,5,0},
         {4,6,3,7,6,9,3,7,6,7,7,4,9,0,0,0,9,7,1,2,6,4,8,1,2,4,8,9,6,9,7,0,0,7,8,0,5,0,4,1,7,0,1,8,2,6,0,5,3,8},
         {7,4,3,2,4,9,8,6,1,9,9,5,2,4,7,4,1,0,5,9,4,7,4,2,3,3,3,0,9,5,1,3,0,5,8,1,2,3,7,2,6,6,1,7,3,0,9,6,2,9},
@@ -115,36 +115,34 @@ int main()
         {5,3,5,0,3,5,3,4,2,2,6,4,7,2,5,2,4,2,5,0,8,7,4,0,5,4,0,7,5,5,9,1,7,8,9,7,8,1,2,6,4,3,3,0,3,3,1,6,9,0}
     };
 
-
-    int answerArray[100] = {0};
+    int sumArray[100] = {0};
 
     // Add all rows together into answer array by column
-    for ( row=0 ; row<100 ; row++ )
-        for ( col=49 ; col>=0 ; col-- )
-            answerArray[col+50]=answerArray[col+50]+myArray[row][col];
+    for ( int row=0 ; row<100 ; row++ )
+        for ( int col=49 ; col>=0 ; col-- )
+            sumArray[col+50] += numArray[row][col];
 
     // Carry over answers for each column
-    for ( col=99 ; col>=0 ; col-- )
-        while ( answerArray[col] > 9 )
+    for ( int col=99 ; col>=0 ; col-- )
+        while ( sumArray[col] > 9 )
         {
-            answerArray[col-1]++;
-            answerArray[col]=answerArray[col]-10;
+            sumArray[col-1]++;
+            sumArray[col] -= 10;
         }
 
-
-    // Find position where number begins
-    for (col=0 ; col<100 ; col++)
-        if (answerArray[col] != 0)
-            break;
-
-    // Copy left-most 10 digits to answer
-    for (index=0 ; index<10 ; index++)
+    // Print answer after finding start position
+    int pos = 0, len = 10;
+    while (pos < 100 && len > 0)
     {
-        answer = answer + answerArray[col+index] * pow(10, (9 - index));
-        printf("%i, %i, %i \n", col, index, answerArray[col+index]);
+        pos++;
+        if (sumArray[pos] == 0 && len == 10)
+            continue;
+        printf("%d", sumArray[pos]);
+        len--;
     }
+    printf("\n");
 
-    printf("First 10 digits of sum: %ld\n", answer);
+    printElapsedTime(start);
 
     return 0;
 }
