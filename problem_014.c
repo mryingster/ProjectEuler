@@ -1,6 +1,7 @@
-// -*- compile-command: "gcc -o problem_014 problem_014.c -Wall" -*-
+// -*- compile-command: "gcc -std=c99 -o problem_014 problem_014.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
+#include "ceuler.h"
 
 int chainLength(unsigned long long index, int *history)
 {
@@ -25,19 +26,22 @@ int chainLength(unsigned long long index, int *history)
 
 int main()
 {
-    int index = 0;
-    int history[1000001] = {0};
-    int longest[2] = {0};
-
     printf("Project Euler - Problem 14:\n"
            "Which starting number, under one million, produces the longest chain by following the rules below?\n\n"
            "if n is even, n/2\n"
            "if n is odd, 3n+1\n\n");
 
-    for ( index=1 ; index<=1000000 ; index++ )
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
+
+    int history[1000001] = {0};
+    int longest[2] = {0};
+
+    for ( int index=1 ; index<=1000000 ; index++ )
         history[index] = chainLength(index, history);
 
-    for ( index=1 ; index<=1000000 ; index++ )
+    for ( int index=1 ; index<=1000000 ; index++ )
         if ( history[index] > longest[0] )
         {
             longest[0] = history[index];
@@ -45,6 +49,7 @@ int main()
         }
 
     printf("Starting number: %i, Chain length: %i\n", longest[1], longest[0]);
+    printElapsedTime(start);
 
     return 0;
 }
