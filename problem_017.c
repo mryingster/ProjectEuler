@@ -1,9 +1,17 @@
-// -*- compile-command: "gcc -o problem_017 problem_017.c -Wall" -*-
+// -*- compile-command: "gcc -std=c99 -o problem_017 problem_017.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
+#include "ceuler.h"
 
 int main()
 {
+    printf("Project Euler - Problem 17:\n"
+           "If all the numbers from 1 to 1000 (one thousand) inclusive were written out in words, how many letters would be used?\n\n");
+
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
+
     const int thousand = 8;
     const int hundred  = 7;
     const int and      = 3;
@@ -13,9 +21,6 @@ int main()
 
     int i = 0;
     int total = 0;
-
-    printf("Project Euler - Problem 17:\n"
-           "If all the numbers from 1 to 1000 (one thousand) inclusive were written out in words, how many letters would be used\n\n");
 
     for (i=1 ; i<=1000 ; i++)
     {
@@ -48,6 +53,7 @@ int main()
     }
 
     printf("Total letters used: %i\n", total);
+    printElapsedTime(start);
 
     return 0;
 }
