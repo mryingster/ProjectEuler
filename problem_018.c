@@ -5,6 +5,9 @@
 
 int main()
 {
+    printf("Project Euler - Problem 18:\n"
+           "Find the maximum total from top to bottom of the triangle below:\n\n");
+
     int pyramid[15][15]={{75, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                          {95,64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                          {17,47,82, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -21,12 +24,6 @@ int main()
                          {63,66, 4,68,89,53,67,30,73,16,69,87,40,31, 0},
                          {04,62,98,27,23, 9,70,98,73,93,38,53,60, 4,23}};
     const int size = sizeof(pyramid)/sizeof(pyramid[0]);
-    int binaryPath[16] = {0};
-    int largest = 0;
-    bool debug = false;
-
-    printf("Project Euler - Problem 18:\n"
-           "Find the maximum total from top to bottom of the triangle below:\n\n");
 
     // Print Pyramid
     for (int y=0; y<size; y++)
@@ -45,42 +42,16 @@ int main()
     struct timeval start;
     gettimeofday(&start, NULL);
 
-    while (binaryPath[0] != 1)
-    {
-        // Carry over addition
-        for (int i=size ; i>=0 ; i--)
-            if (binaryPath[i]>1)
-            {
-                binaryPath[i] -= 2;
-                binaryPath[i-1]++;
-            }
-
-        // Follow Path
-        int candidate = 0, n = 0;
-        for (int i=size ; i>0 ; i--)
-	{
-            if (binaryPath[i] == 1)
-                n += 1;
-            candidate += pyramid[size-i][n];
-	}
-
-        // DEBUG: Print path and sum
-        if (debug == true)
+    for (int y=size-2; y>=0; y--)
+        for (int x=0; x<=y; x++)
         {
-            for (int i=0 ; i<16 ; i++)
-                printf("%d", binaryPath[i]);
-            printf(" - %d\n", candidate);
+            if (pyramid[y+1][x] > pyramid[y+1][x+1])
+                pyramid[y][x] += pyramid[y+1][x];
+            else
+                pyramid[y][x] += pyramid[y+1][x+1];
         }
 
-        // Compare if larger
-        if (candidate > largest)
-            largest = candidate;
-
-        // Increase binaryPath by 1
-        binaryPath[size]++;
-    }
-
-    printf("Largest sum: %d\n", largest);
+    printf("%d\n", pyramid[0][0]);
     printElapsedTime(start);
 
     return 0;
