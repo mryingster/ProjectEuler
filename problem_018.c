@@ -3,6 +3,19 @@
 #include <stdio.h>
 #include "ceuler.h"
 
+void printPyramid(int p[][15], const int len)
+{
+    for (int y=0; y<len; y++)
+    {
+        for (int c=len; c>y; c--)
+            printf("  ");
+        for (int x=0; x<=y; x++)
+            printf("%02d  ", p[y][x]);
+        printf("\n");
+    }
+    printf("\n");
+}
+
 int main()
 {
     printf("Project Euler - Problem 18:\n"
@@ -24,19 +37,10 @@ int main()
                          {63,66, 4,68,89,53,67,30,73,16,69,87,40,31, 0},
                          {04,62,98,27,23, 9,70,98,73,93,38,53,60, 4,23}};
     const int size = sizeof(pyramid)/sizeof(pyramid[0]);
+    bool debug = false;
 
     // Print Pyramid
-    for (int y=0; y<size; y++)
-    {
-        for (int c=size; c>y; c--)
-            printf("  ");
-        for (int x=0; x<=y; x++)
-        {
-            printf("%02d  ", pyramid[y][x]);
-        }
-        printf("\n");
-    }
-    printf("\n");
+    printPyramid(pyramid, size);
 
     // Begin time tracking
     struct timeval start;
@@ -44,12 +48,13 @@ int main()
 
     for (int y=size-2; y>=0; y--)
         for (int x=0; x<=y; x++)
-        {
             if (pyramid[y+1][x] > pyramid[y+1][x+1])
                 pyramid[y][x] += pyramid[y+1][x];
             else
                 pyramid[y][x] += pyramid[y+1][x+1];
-        }
+
+    if (debug == true)
+        printPyramid(pyramid, size);
 
     printf("%d\n", pyramid[0][0]);
     printElapsedTime(start);
