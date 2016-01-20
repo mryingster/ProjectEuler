@@ -8,7 +8,7 @@ print("What is the sum of the digits of the number 2^1000\n")
 var num: [Int] = [2]
 var debug: Bool = false
 
-for i in 1...999 {
+for i in 2...1000 {
     for n in 0...num.count-1 {
         num[n] *= 2
     }
@@ -32,5 +32,4 @@ for var n = num.count-1; n >= 0 ; n-- {
     }
 }
 
-print("")
 print(sum)
