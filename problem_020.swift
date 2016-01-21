@@ -1,8 +1,8 @@
 #!/usr/bin/xcrun swift
-// -*- compile-command: "swiftc problem_019.swift -o problem_019" -*-
+// -*- compile-command: "swiftc problem_020.swift -o problem_020" -*-
 // Copyright (c) 2016 Michael Caldwell
 
-print("Project Euler - Problem 19:")
+print("Project Euler - Problem 20:")
 print("Find the sum of the digits in the number 100!\n")
 
 var n: [Int] = [1]
