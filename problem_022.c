@@ -1,4 +1,4 @@
-// -*- compile-command: "gcc -o problem_022 problem_022.c ceuler.c -Wall" -*-
+// -*- compile-command: "gcc -std=c99 -o problem_022 problem_022.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,15 +19,18 @@ int main()
     printf("Project Euler - Problem 22:\n"
            "Sort 5000 names and calculate the sum of their name scores.\n\n");
 
-    char names[6000][maxNameSize] = {};
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
+
+    char names[6000][maxNameSize];// = {};
     int nameIndex = 0;
-    int charIndex = 0;
-    int ch;
-    int score = 0;
 
     nameFile = fopen ("problem_022.txt", "rt");
 
     // Read in names to array
+    int ch;
+    int charIndex = 0;
     while((ch = fgetc(nameFile)))
     {
         if (ch == EOF) break;
@@ -41,8 +44,7 @@ int main()
             continue;
         }
 
-        names[nameIndex][charIndex] = ch;
-        charIndex++;
+        names[nameIndex][charIndex++] = ch;
     }
 
     fclose(nameFile);
@@ -51,10 +53,12 @@ int main()
     qsort(names, nameIndex+1, sizeof(names[0]), compare);
 
     // Score names
-    int index = 0;
-    for(index=0; index <= nameIndex; index++)
-        score += (index + 1) * wordScore(names[index], maxNameSize);
+    int score = 0;
+    for(int i=0; i <= nameIndex; i++)
+        score += (i + 1) * wordScore(names[i], maxNameSize);
 
     printf("Total name score: %d\n", score);
+    printElapsedTime(start);
+
     return 0;
 }
