@@ -1,14 +1,14 @@
-// -*- compile-command: "gcc -o problem_023 problem_023.c -Wall" -*-
+// -*- compile-command: "gcc -std=c99 -o problem_023 problem_023.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
+#include "ceuler.h"
 
-int getDivisorSum(int number)
+int getDivisorSum(int n)
 {
-    int index=0, sum=0;
-
-    for (index=1 ; index<number ; index++)
-        if (number % index == 0)
-            sum += index;
+    int sum = 1, limit = n/2+1;
+    for (int i=2; i<limit; i++)
+        if (n % i == 0)
+            sum += i;
     return sum;
 }
 
@@ -17,53 +17,35 @@ int main()
     printf("Project Euler - Problem 23:\n"
            "Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.\n\n");
 
-    int number     = 0;
-    int divisorSum = 0;
-    int counter    = 0;
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
+
+    const int limit = 28123;
     int abundant[28123] = {0};
-    int abun1      = 0;
-    int abun2      = 0;
-    unsigned long long sum = 0;
+    int abundantCount = 0;
 
     // Find abundant numbers and store in array, adundant
-    for (number=1 ; number<=28123 ; number++)
-    {
-        divisorSum = getDivisorSum(number);
-        if (divisorSum > number)
-        {
-            abundant[counter]=number;
-            counter++;
-        }
-    }
+    for (int n=1 ; n <= 28123 ; n++)
+        if (getDivisorSum(n) > n)
+            abundant[abundantCount++] = n;
 
-    int invalid = 0;
-    // See if number is made up of two abundant numbers
-    for (number = 0 ; number <= 28123 ; number++)
-    {
-        invalid = 0;
-        for (abun1=0 ; abun1<counter ; abun1++)
+    bool abundantSums[28123] = {false};
+    for (int a=0; a<abundantCount; a++)
+        for (int b=0; b<abundantCount; b++)
         {
-            for (abun2=abun1 ; abun2<counter ; abun2++)
-            {
-                if (abundant[abun1] + abundant[abun2] > number)
-                    break;
-
-                if (abundant[abun1] + abundant[abun2] == number)
-                {
-                    invalid = 1;
-                    break;
-                }
-            }
-            if (invalid == 1)
-                break;
+            int abundantSum = abundant[a]+abundant[b];
+            if (abundantSum > limit) break;
+            abundantSums[abundantSum] = true;
         }
-        if (invalid != 1)
-        {
-            sum += number;
-            //printf("Number not made of abundant pairs: %d, sum: %llu\n", number, sum); // DEBUG
-        }
-    }
 
-    printf("Sum: %llu\n", sum);
+    int sum = 0;
+    for (int i=0; i<limit; i++)
+        if (abundantSums[i] == false)
+            sum += i;
+
+    printf("Sum: %d\n", sum);
+    printElapsedTime(start);
+
     return 0;
 }
