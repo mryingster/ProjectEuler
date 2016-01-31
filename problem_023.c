@@ -3,13 +3,17 @@
 #include <stdio.h>
 #include "ceuler.h"
 
-int getDivisorSum(int n)
+bool isAbundant(int n)
 {
     int sum = 1, limit = n/2+1;
     for (int i=2; i<limit; i++)
+    {
         if (n % i == 0)
             sum += i;
-    return sum;
+        if (sum > n)
+            return true;
+    }
+    return false;
 }
 
 int main()
@@ -27,12 +31,12 @@ int main()
 
     // Find abundant numbers and store in array, adundant
     for (int n=1 ; n <= 28123 ; n++)
-        if (getDivisorSum(n) > n)
+        if (isAbundant(n) == true)
             abundant[abundantCount++] = n;
 
     bool abundantSums[28123] = {false};
     for (int a=0; a<abundantCount; a++)
-        for (int b=0; b<abundantCount; b++)
+        for (int b=a; b<abundantCount; b++)
         {
             int abundantSum = abundant[a]+abundant[b];
             if (abundantSum > limit) break;
