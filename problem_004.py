@@ -6,17 +6,10 @@ print("Find the largest palindrome made from the product of two 3-digit numbers.
 result = 0
 
 for a in range(100, 999):
-    for b in range(100, 999):
-        product = a * b
-        tcudorp = 0
-        while (product > 0):
-            tcudorp = int(tcudorp * 10)
-            tcudorp +=   (product % 10)
-            product = int(product / 10)
-        product = a * b
-        #print (product, tcudorp) #DEBUG
-        if ( product == tcudorp ):
-            if result < product:
+    for b in range(a, 999):
+        product = a*b
+        if (product == int(str(product)[::-1])):
+            if product > result:
                 result = product
 
-print("Largest product: "+str(result))
+print(result)
