@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import csv, os, sys, glob, datetime
+import csv, os, sys, glob, datetime, platform
 
 #### CSV Operations ####
 def verifyCSVFileExists(csvfilename, fields):
@@ -93,42 +93,52 @@ def saveMarkDown(markDownFile, fieldsArray, dictArray):
 #### Timing Operations ####
 
 def timeSolution(path):
+    if not os.path.exists(path): return ""
+    print ("Testing: %s." % path)
+
     from subprocess import call
     start = datetime.datetime.now()
-    call(path)
+    try:
+        call(path)
+    except:
+        print("Error encountered while testing %s." % path)
+        return ""
     end =  datetime.datetime.now()
     return str(end-start)
 
 #### Compile Operations ####
 
-def compileC(path):
-    from subprocess import call
-    output = path[:-2]+"_c"
-    call(["gcc", "-std=c99", "-o", output, path, "ceuler.c", "-Wall", "-lm"])
-    return output
+def compile(path, ext):
+    print("Compiling %s." % path)
 
-def compileCPP(path):
-    from subprocess import call
-    output = path[:-4]+"_cpp"
-    call(["g++", "-std=c++0x", "-o", output, path, "ceuler.c", "-Wall", "-lm"])
-    return output
+    if ext == "c":
+        output = path[:-2]+"_c"
+        compileCommand = ["gcc", "-std=c99", "-o", output, path, "ceuler.c", "-Wall", "-lm"]
+    if ext == "cpp":
+        output = path[:-4]+"_cpp"
+        compileCommand = ["g++", "-std=c++0x", "-o", output, path, "ceuler.c", "-Wall", "-lm"]
+    if ext == "swift":
+        output = path[:-6]+"_swift"
+        compileCommand = ["swiftc",  path, "-o", output]
+    if ext == "rs":
+        output = path[:-3]+"_rs"
+        compileCommand = ["rustc", "-o", output, path]
 
-def compileSwift(path):
     from subprocess import call
-    output = path[:-6]+"_swift"
-    call(["swiftc",  path, "-o", output])
-    return output
-
-def compileRust(path):
-    from subprocess import call
-    output = path[:-3]+"_rs"
-    call(["rustc", "-o", output, path])
+    try:
+        call(compileCommand)
+    except:
+        print("Unable to compile %s." % path)
+        return ""
     return output
 
 #### Main Function ####
 
-def main(csvFile, markDownFile, dictArray, fieldsArray, timeRange):
-    for problem in range(timeRange[0], timeRange[1]):
+def main(csvFile, markDownFile, dictArray, fieldsArray, params):
+    scriptDict = {"py":"Python","lua":"Lua","pl":"Perl"}
+    compileDict = {"c":"C/C++", "rs":"Rust", "swift":"Swift", "cpp":"C/C++"}
+
+    for problem in range(params["range"][0], params["range"][1]):
         number = "%03d" % problem
 
         # See if we have an entry for this problem yet
@@ -148,27 +158,16 @@ def main(csvFile, markDownFile, dictArray, fieldsArray, timeRange):
 
             # Time script based solutions
             if ext in scriptDict:
-                dictArray[index].update({scriptDict[ext]:timeSolution(f)})
+                if params["retest"] == True or scriptDict[ext] not in dictArray[index] or dictArray[index][scriptDict[ext]] == "":
+                    dictArray[index].update({scriptDict[ext]:timeSolution(f)})
 
             # Time compiled solutions
-            if ext == "c":
-                executable = compileC(f)
-                if os.path.exists(executable):
-                    dictArray[index].update({"C/C++":timeSolution(executable)})
-            if ext == "rs":
-                executable = compileRust(f)
-                if os.path.exists(executable):
-                    dictArray[index].update({"Rust":timeSolution(executable)})
-            if ext == "cpp":
-                executable = compileCPP(f)
-                if os.path.exists(executable):
-                    dictArray[index].update({"C/C++":timeSolution(executable)})
-            if ext == "swift":
-                import platform
-                if platform.system() == "Darwin":
-                    executable = compileSwift(f)
-                    if os.path.exists(executable):
-                        dictArray[index].update({"swift":timeSolution(executable)})
+            if ext in compileDict:
+                if params["retest"] == True or compileDict[ext] not in dictArray[index] or dictArray[index][compileDict[ext]] == "":
+                    executable = compile(f, ext)
+                    if executable == "": continue
+                    if ext == "swift" and platform.system() != "Darwin": continue
+                    dictArray[index].update({compileDict[ext]:timeSolution(executable)})
 
             # Update CSV File
             dictArray = resortArray(dictArray)
@@ -181,7 +180,7 @@ def main(csvFile, markDownFile, dictArray, fieldsArray, timeRange):
 # Create file(s)
 csvFile = "times.csv"
 markDownFile = "times.md"
-fieldsArray = ["Problem", "Python", "C/C++", "Perl", "Lua", "Swift", "Rust"]
+fieldsArray = ["Problem", "C/C++", "Swift", "Python", "Perl", "Lua", "Rust"]
 
 verifyCSVFileExists(csvFile, fieldsArray)
 dictArray = readCSV(csvFile)
@@ -189,15 +188,19 @@ dictArray = readCSV(csvFile)
 # Write backup file before making changes
 writeCSV(csvFile+"~", dictArray, fieldsArray)
 
-scriptDict = {"py":"Python","lua":"Lua","pl":"Perl"}
-compileDict = {"c":"C", "rs":"Rust", "swift":"Swift", "cpp":"C"}
-
 # Handle Input Params
-timeRange = [1, 101]
-if len(sys.argv) == 2 and sys.argv[1].isdigit():
-    timeRange = [int(sys.argv[1]), int(sys.argv[1])+1]
-if len(sys.argv) == 3 and sys.argv[1].isdigit() and sys.argv[2].isdigit():
-    timeRange = [int(sys.argv[1]), int(sys.argv[2])]
+args = sys.argv
 
-main(csvFile, markDownFile, dictArray, fieldsArray, timeRange)
+params = {"retest":False}
+if "-r" in args:
+    params.update({"retest":True})
+    args.pop(args.index("-r"))
+
+params.update({"range":[1, 101]})
+if len(args) == 2 and args[1].isdigit():
+    params.update({"range":[int(args[1]), int(args[1])+1]})
+if len(args) == 3 and args[1].isdigit() and args[2].isdigit():
+    params.update({"range":[int(args[1]), int(args[2])+1]})
+
+main(csvFile, markDownFile, dictArray, fieldsArray, params)
 
