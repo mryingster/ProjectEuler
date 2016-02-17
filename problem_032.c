@@ -1,80 +1,79 @@
-// -*- compile-command: "gcc -o problem_032 problem_032.c -Wall" -*-
+// -*- compile-command: "gcc -std=c99 -o problem_032 problem_032.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
-#include <stdbool.h>
+#include "ceuler.h"
+
+bool isPandigitalProduct(int a, int b, int c)
+{
+    // Create check array for digits. Mark 0 as 1 since 0 not included in pandigital numbers
+    int check[10] = {0};
+    check[0] = 1;
+
+    while (a != 0)
+    {
+        check[a%10]++;
+        a /= 10;
+    }
+
+    while (b != 0)
+    {
+        check[b%10]++;
+        b /= 10;
+    }
+
+    while (c != 0)
+    {
+        check[c%10]++;
+        c /= 10;
+    }
+
+    for (int i=0; i<10; i++)
+        if (check[i] != 1)
+            return false;
+
+    return true;
+}
 
 int main()
 {
     printf("Project Euler - Problem 32:\n"
            "Find the sum of all numbers that can be written as pandigital products.\n\n");
 
-    int multiplicand, multiplier, product;
-    int multiplicand_d, multiplier_d, product_d, total=0;
-    int products_found[100]={};
-    int check[10]={0};
-    int index;
-    int count=0;
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
 
-    for (multiplicand=1 ; multiplicand<2500; multiplicand++)
-        for (multiplier=1 ; multiplier<2500; multiplier++)
+    int sum = 0;
+    int found[100] = {};
+    int count = 0;
+    bool debug = false;
+
+    for (int a=1 ; a<2500; a++)
+        for (int b=a ; b<2500; b++)
         {
-            product = multiplicand*multiplier;
-
-            // Create temporary variables for deconstruction
-            multiplicand_d = multiplicand;
-            multiplier_d = multiplier;
-            product_d = product;
-
-            // Clear check array
-            for (index=0 ; index<10 ; index++)
-                check[index]=0;
-            // Mark 0 as 1 since 0 should not be included in pandigital number
-            check[0]=1;
-
-            // Deconstruct multiplier, multiplicand, & product into check array
-            while (multiplicand_d!=0)
-            {
-                check[multiplicand_d%10]++;
-                multiplicand_d /= 10;
-            }
-            while (multiplier_d!=0)
-            {
-                check[multiplier_d%10]++;
-                multiplier_d /= 10;
-            }
-            while (product_d!=0)
-            {
-                check[product_d%10]++;
-                product_d /= 10;
-            }
-
-            // Check for duplicate numbers
-            bool candidate = true;
-            for (index=0 ; index<10 ; index++)
-                if (check[index] != 1)
-                    candidate = false;
+            int c = a*b;
 
             // If pandigital, record, increment
-            if (candidate == true)
+            if (isPandigitalProduct(a, b, c) == true)
             {
-
-                // Check history for product
+                // Check history for c
                 bool recorded = false;
-                for (index=0 ; index<100 ; index++)
-                    if (products_found[index] == product)
+                for (int i=0 ; i<count ; i++)
+                    if (found[i] == c)
                         recorded = true; //Already recorded, ignore
 
                 //Record and add to sum
                 if (recorded == false)
                 {
-                    products_found[count]=product;
-                    total += product;
-                    count++;
+                    if (debug == true) printf("%d x %d = %d\n", a, b, c);
+                    found[count++]=c;
+                    sum += c;
                 }
             }
         }
 
-    printf("Sum: %d\n", total);
+    printf("%d\n", sum);
+    printElapsedTime(start);
 
     return 0;
 }
