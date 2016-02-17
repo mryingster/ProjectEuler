@@ -139,6 +139,7 @@ def main(csvFile, markDownFile, dictArray, fieldsArray, params):
     compileDict = {"c":"C/C++", "rs":"Rust", "swift":"Swift", "cpp":"C/C++"}
 
     for problem in range(params["range"][0], params["range"][1]):
+        if problem < 1: continue
         number = "%03d" % problem
 
         # See if we have an entry for this problem yet
@@ -164,9 +165,9 @@ def main(csvFile, markDownFile, dictArray, fieldsArray, params):
             # Time compiled solutions
             if ext in compileDict:
                 if params["retest"] == True or compileDict[ext] not in dictArray[index] or dictArray[index][compileDict[ext]] == "":
+                    if ext == "swift" and platform.system() != "Darwin": continue
                     executable = compile(f, ext)
                     if executable == "": continue
-                    if ext == "swift" and platform.system() != "Darwin": continue
                     dictArray[index].update({compileDict[ext]:timeSolution(executable)})
 
             # Update CSV File
@@ -203,4 +204,3 @@ if len(args) == 3 and args[1].isdigit() and args[2].isdigit():
     params.update({"range":[int(args[1]), int(args[2])+1]})
 
 main(csvFile, markDownFile, dictArray, fieldsArray, params)
-
