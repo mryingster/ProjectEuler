@@ -11,6 +11,7 @@ def isPandigital(n):
             return False
     return True
 
+debug = False
 pandigitalProducts = []
 for a in range(1000):
     for b in range(a, 2000):
@@ -19,7 +20,7 @@ for a in range(1000):
         if len(string) < 9: continue
         if len(string) > 9: break
         if isPandigital(string):
-            print("%d x %d = %d" %(a, b, c))
+            if debug == True: print("%d x %d = %d" %(a, b, c))
             if not c in pandigitalProducts:
                 pandigitalProducts.append(c)
 
