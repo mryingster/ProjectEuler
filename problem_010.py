@@ -3,18 +3,15 @@
 print("Project Euler - Problem 10:")
 print("Find the sum of all the primes below two million.\n")
 
-def isPrime (number):
-    import math
-    limit = int(math.sqrt(number))
-    for index in range(3, limit+1, 2):
-        if number % index == 0:
-            return False
-    return True
+limit = 2000000
+primes = [0, 0] + [1] * (limit-2)
 
-sum = 2
+for i in range(len(primes)):
+    if primes[i] == 1:
+        primes[i] = i
+        n = 2
+        while n * i < limit:
+            primes[n * i] = 0
+            n += 1
 
-for number in range(3, 2000000, 2):
-    if isPrime(number) == True:
-        sum += number
-
-print("Sum of primes: "+str(sum))
+print(sum(primes))
