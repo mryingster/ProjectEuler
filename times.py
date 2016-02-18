@@ -135,7 +135,7 @@ def compile(path, ext):
 #### Main Function ####
 
 def main(csvFile, markDownFile, dictArray, fieldsArray, params):
-    scriptDict = {"py":"Python","lua":"Lua","pl":"Perl"}
+    scriptDict = {"py":"Python","lua":"Lua","pl":"Perl","sh":"Bash"}
     compileDict = {"c":"C/C++", "rs":"Rust", "swift":"Swift", "cpp":"C/C++"}
 
     for problem in range(params["range"][0], params["range"][1]):
@@ -181,7 +181,7 @@ def main(csvFile, markDownFile, dictArray, fieldsArray, params):
 # Create file(s)
 csvFile = "times.csv"
 markDownFile = "times.md"
-fieldsArray = ["Problem", "C/C++", "Swift", "Python", "Perl", "Lua", "Rust"]
+fieldsArray = ["Problem", "C/C++", "Swift", "Python", "Perl", "Lua", "Rust", "Bash"]
 
 verifyCSVFileExists(csvFile, fieldsArray)
 dictArray = readCSV(csvFile)
