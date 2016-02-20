@@ -1,4 +1,4 @@
-#!/usr/bin/lua
+#!/usr/bin/env lua
 
 print("Project Euler - Problem 3:")
 print("What is the largest prime factor of the number 600851475143 ?\n")

@@ -1,4 +1,4 @@
-#!/usr/bin/lua
+#!/usr/bin/env lua
 
 print("Project Euler - Problem 4:")
 print("Find the largest palindrome made from the product of two 3-digit numbers.\n")
