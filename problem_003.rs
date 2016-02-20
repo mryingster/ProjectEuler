@@ -1,6 +1,5 @@
 // -*- compile-command: "rustc -o problem_003_rs problem_003.rs" -*-
 // Copyright (c) 2016 Michael Caldwell
-//use std::num;
 
 fn is_prime(n: u64) -> bool {
     if n < 2 {
@@ -14,7 +13,7 @@ fn is_prime(n: u64) -> bool {
     }
 
     let limit = (n as f64).sqrt() as u64;
-    for i in 3..limit {
+    for i in 3..(limit+1) {
         if n % i == 0 {
             return false;
         }
