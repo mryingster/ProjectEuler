@@ -4,27 +4,17 @@ echo "Project Euler - Problem 9"
 echo "There exists exactly one Pythagorean triplet for which a + b + c = 1000. Find the product abc."
 echo
 
-answer=0
-
-for a in {100..1000}; do
+for (( a=1; a<1000; a++ )); do
+    aa=$(($a*$a))
     for (( b=$a+1; b<1000; b++ )); do
+        leftside=$(($aa+($b*$b)))
         for (( c=$b+1; c<1000; c++ )); do
             # Check for appropriate c
-            leftside=$((($a*$a)+($b*$b)))
             rightside=$(($c*$c))
-            [ $leftside -gt $rightside ] && continue
-            [ $leftside -lt $rightside ] && break
-
+            [[ $leftside -lt $rightside || $(($a+$b+$c)) -gt 1000 ]] && break
+ 
             # See if sum is 1000
-            [ $(($a+$b+$c)) -ne 1000 ] && continue
-
-            # We have our answer!
-            answer=$(($a*$b*$c))
-            break
-        done
-        [ $answer -ne 0 ] && break
+            [[ $leftside -eq $rightside && $(($a+$b+$c)) -eq 1000 ]] && echo $(($a*$b*$c)) && exit
+         done
     done
-    [ $answer -ne 0 ] && break
 done
-
-echo "$answer"
