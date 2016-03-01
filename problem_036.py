@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 
 print("Project Euler - Problem 36:")
 print("Find the sum of all numbers, less than one million, which are palindromic in base 10 and base 2.\n")
