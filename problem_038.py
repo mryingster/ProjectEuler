@@ -10,7 +10,7 @@ def isPandigital(n):
     return True
 
 max = 0
-for i in range(1, 1000):
+for i in range(1, 10000):
     number = ""
     multiplier = 1
     while len(number) < 9:
