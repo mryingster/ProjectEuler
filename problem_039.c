@@ -1,59 +1,40 @@
-// -*- compile-command: "gcc -o problem_039 problem_039.c -Wall -O3" -*-
+// -*- compile-command: "gcc -std=c99 -o problem_039 problem_039.c ceuler.c -Wall -lm" -*-
 // Copyright (c) 2014 Michael Caldwell
 #include <stdio.h>
-#include <stdbool.h>
-
-bool isTriangle(int a, int b, int c)
-{
-    if ( (a*a) == (b*b) + (c*c) ||
-         (b*b) == (a*a) + (c*c) ||
-         (c*c) == (a*a) + (b*b) )
-        return true;
-    return false;
-}
+#include "ceuler.h"
 
 int main()
 {
     printf("Project Euler - Problem 39:\n"
            "Find the perimeter of a right triangle (p) that has the most possible solutions, where the perimiter is less than or equal to 1000.\n\n");
 
-    int a, b, c, p;
-    int maxCount = 0;
-    int maxPerimeter = 0;
-    int count=0;
+    // Begin time tracking
+    struct timeval start;
+    gettimeofday(&start, NULL);
 
-    for ( p=13 ; p<=1000 ; p++ )
-    {
-        count = 0;
-        a = 0;
+    int perimeter[1000] = {};
+    int limit = sizeof(perimeter)/sizeof(perimeter[0]);
+    int largest = 0;
 
-        // Increment side A
-        while (++a < p - 2)
+    for (int a=0; a<limit; a++)
+        for (int b=a; b<limit; b++)
         {
-            b = 0;
-            // Increment side B, remainder is side C
-            while ((c = p - a - (++b)) > 0)
-            {
-                // If we pass the pythagorus test, it's a right triangle!
-                if ( isTriangle (a, b, c) == true)
-                {
-                    //printf("Solution: %d, %d, %d\n", a, b, c); // DEBUG
-                    count++;
-                }
-            }
+            // Check if side c is integer length
+            int rightSide = (a*a) + (b*b);
+            int c = sqrt(rightSide);
+            if ( c*c != rightSide) continue;
+
+            // Make sure perimeter is less than limit
+            int p = a + b + c;
+            if ( p >= limit ) continue;
+
+            // Keep track of perimeter with most solutions
+            if ( ++perimeter[p] > perimeter[largest] )
+                largest = p;
         }
 
-        count /= 6; // Each solution is found 6 times
-
-        // Check if current solution is better than previous best
-        if (count > maxCount)
-        {
-            maxCount = count;
-            maxPerimeter = p;
-        }
-    }
-
-    printf("Greatest: %d, (%d solutions)\n", maxPerimeter, maxCount);
+    printf("%d\n", largest);
+    printElapsedTime(start);
 
     return 0;
 }
