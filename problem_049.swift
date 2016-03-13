@@ -1,10 +1,10 @@
 #!/usr/bin/xcrun swift
-// -*- compile-command: "swiftc problem_010.swift -o problem_010" -*-
+// -*- compile-command: "swiftc problem_049.swift -o problem_049" -*-
 // Copyright (c) 2016 Michael Caldwell
 import Cocoa
 
 print("Project Euler - Problem 49:")
-print("\n")
+print("What 12 digit sequence do you form by concatenating three four-digit primes that are permutations of each other and increase by the same amount?\n")
 
 func isPrime(n:Int) -> Bool {
     if n < 2 { return false }
