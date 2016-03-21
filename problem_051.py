@@ -2,7 +2,7 @@
 import re
 
 print("Project Euler - Problem 51:")
-print("\n")
+print("Find the smallest prime which, by replacing part of the number with the same digit, is part of an eight prime value family.\n")
 
 limit = 1000000
 primes = [0, 0] + [1] * (limit-2)
