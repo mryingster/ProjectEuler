@@ -31,7 +31,7 @@ unsigned long long nextPrime(unsigned long long input)
 void primeSieve(int *primes, int len)
 {
     int index = 0, max = len*15;
-    bool *sieve = malloc(max*sizeof(bool));
+    bool *sieve = (bool*)malloc(max*sizeof(bool));
 
     for (int i=2; i<max; i++) sieve[i] = true;
     sieve[0] = false;
