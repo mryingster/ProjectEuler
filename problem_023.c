@@ -3,21 +3,7 @@
 #include <stdio.h>
 #include "ceuler.h"
 
-bool isAbundant(int n)
-{
-    int sum = 1, limit = n/2+1;
-    for (int i=2; i<limit; i++)
-    {
-        if (n % i == 0)
-            sum += i;
-        if (sum > n)
-            return true;
-    }
-    return false;
-}
-
-int main()
-{
+int main() {
     printf("Project Euler - Problem 23:\n"
            "Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.\n\n");
 
@@ -26,14 +12,20 @@ int main()
     gettimeofday(&start, NULL);
 
     const int limit = 28123;
+
+    // Find abundant numbers and store in array, abundant
+    int sums[28123] = {0};
     int abundant[28123] = {0};
     int abundantCount = 0;
-
-    // Find abundant numbers and store in array, adundant
-    for (int n=1 ; n <= 28123 ; n++)
-        if (isAbundant(n) == true)
+    for (int n=1; n<limit; n++)
+    {
+        for (int m=2; m*n<limit; m++)
+            sums[m*n] += n;
+        if (sums[n] > n)
             abundant[abundantCount++] = n;
+    }
 
+    // Find all abundant sums and track in boolean array
     bool abundantSums[28123] = {false};
     for (int a=0; a<abundantCount; a++)
         for (int b=a; b<abundantCount; b++)
@@ -43,6 +35,7 @@ int main()
             abundantSums[abundantSum] = true;
         }
 
+    // Add up non-abundant sums
     int sum = 0;
     for (int i=0; i<limit; i++)
         if (abundantSums[i] == false)
