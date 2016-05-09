@@ -4,37 +4,24 @@ print("Project Euler - Problem 47:")
 print("What is the first of four consecutive integers to have four distinct prime factors?\n")
 
 limit = 500000
-primeSieve = [0, 0] + [1] * (limit-2)
-primes = []
+primeSieve = [0] * (limit)
+answer = 4
 
 # Find primes using sieve
-for n in range(len(primeSieve)):
-    if primeSieve[n] == 1:
-        primes.append(n)
+for n in range(2, limit):
+    if primeSieve[n] == 0:
         m = 2
         while m * n < limit:
-            primeSieve[m * n] = 0
+            primeSieve[m * n] += 1
             m += 1
 
-def destinctPrimeFactors(n, primes):
-    factors = []
-    for p in primes:
-        if n % p == 0:
-            factors.append(p)
-            while n % p == 0:
-                n /= p
-        if n <= 1: break
-    return factors
-
-target = 4
-answer = 0
-for i in range(2, limit):
-    if len(destinctPrimeFactors(i, primes)) == target:
+    if primeSieve[n] == 4:
+        answer -= 1
         if answer == 0:
-            answer = i
-        if i - answer == target - 1:
+            answer = n-3
             break
     else:
-        answer = 0
+        answer = 4
 
 print(answer)
+
