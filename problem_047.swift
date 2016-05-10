@@ -5,60 +5,31 @@
 print("Project Euler - Problem 47:")
 print("What is the of four consecutive integers to have four distinct prime factors?\n")
 
-func distinctFactors(var n:Int, primes:[Int]) -> Int {
-    var index = 0
-    var result = 0
+let limit = 500000
+var primeSieve = [Int](count: limit, repeatedValue: 0)
+var count = 4
 
-    while n > 1 {
-        var count = 0
-        while n % primes[index] == 0 {
-            n /= primes[index]
-            if count == 0 {
-                result += 1
-            }
-            count += 1
-        }
-        index += 1
+for n in 2...limit-1 {
+    // If prime, mark multiples as non-prime
+    if primeSieve[n] == 0 {
+        var i=1
+        repeat {
+            primeSieve[n*i] += 1
+            i += 1
+        } while i*n < primeSieve.count
+
     }
 
-    return result
-}
-
-let limit = 500000
-var primeSieve = [Int](count: limit, repeatedValue: 1)
-primeSieve[0] = 0
-primeSieve[1] = 0
-var primes:[Int] = []
-let target = 4
-var count = 0
-var answer = 0
-
-for n in 2...limit {
-    // If prime, make multiples as non-prime
-    if primeSieve[n] == 1 {
-        primes.append(n)
-        for var i=2; i*n < primeSieve.count; i++ {
-            primeSieve[n*i] = 0
-        }
-        count = 0
-
-    } else {
-        // If composite, check for # of factors
-        let f = distinctFactors(n, primes:primes)
-
-        // Keep track of how many composites have target number of factors
-        if f == target {
-            count += 1
-        } else {
-            count = 0
-        }
-
-        // If we have the correct number of numbers we have our answer
-        if count == target {
-            answer = n - target + 1
+    // Look for four in a row
+    if primeSieve[n] == 4 {
+        count -= 1
+        if count == 0 {
+            count = n - 3
             break
         }
+    } else {
+        count = 4
     }
 }
 
-print(answer)
+print(count)
