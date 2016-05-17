@@ -1,6 +1,5 @@
 // -*- compile-command: "rustc -o problem_036_rs problem_036.rs" -*-
 // Copyright (c) 2016 Michael Caldwell
-//use std::num;
 
 fn is_palindromic_bin(mut n: u64) -> bool {
     let mut bin = [0; 20];
@@ -60,6 +59,3 @@ fn main() {
 
     println!("{}", sum);
 }
-
-
-//872187
