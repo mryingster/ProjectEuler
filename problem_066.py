@@ -1,22 +1,12 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 import math
 
 print("Project Euler - Problem 66")
 print("Using the equation, x^2 - Dy^2 = 1, find the value of D <= 1000 in minimal solutions of x for which the largest value of x is obtained.\n")
 
-number = 2
-largest_number = 0
-largest_x = 0
-
-while number < 1000:
-    number += 1
-    # Skip square numbers
-    a0 = int(math.sqrt(number))
-    if a0 ** 2 == number: continue
-
+def diophantine(a, debug):
     d = 1
     m = 0
-    a = a0
 
     num1 = 1
     num0 = a
@@ -37,11 +27,24 @@ while number < 1000:
         num0 = a * num1 + num2
         den0 = a * den1 + den2
 
-    #print "%s^2 - %s x %s^2" % (num0 , number, den0) #DEBUG
+    if debug == True:
+        print("%s^2 - %s x %s^2" % (num0 , number, den0)) #DEBUG
 
-    # Record largest number
-    if num0 > largest_x:
-        largest_x = num0
-        largest_number = number
+    return num0
 
-print "Max: %s (%s)" % ( largest_number, largest_x )
+results = [0, 0, 0]
+debug = False
+
+for number in range(3, 1001):
+    # Skip square numbers
+    a0 = int(math.sqrt(number))
+    if a0 ** 2 != number:
+        result = diophantine(a0, debug)
+    else:
+        result = 0
+
+    # Record number
+    results.append(result)
+
+# Print maximum stored result
+print("%s (%s)" % (results.index(max(results)), max(results)))
