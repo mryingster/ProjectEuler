@@ -12,8 +12,7 @@ int main()
     printf("Project Euler - Problem 67:\n"
            "Find the maximum total from top to bottom in a triangle with one-hundred rows.\n\n");
 
-    int triangle[maxTriangleSize][maxTriangleSize] = {};
-
+    int triangle[maxTriangleSize][maxTriangleSize];
 
     // Read in triangle to array
     triangleFile = fopen ("problem_067.txt", "rt");

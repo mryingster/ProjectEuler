@@ -77,7 +77,7 @@ int main()
      printf("Project Euler - Problem 59:\n"
             "Decrypt the message and find the sum of the ASCII values in the original text.\n\n");
 
-    int message[maxCipherSize] = {};
+    int message[maxCipherSize];
 
     // Read in cipher to array; Convert ascii to numbers
     cipherFile = fopen ("problem_059.txt", "rt");

@@ -13,7 +13,7 @@ int main()
     printf("Project Euler - Problem 42:\n"
            "In a list of two-thousand common English words, how many are triangle words?\n\n");
 
-    char words[2000][maxWordSize] = {};
+    char words[2000][maxWordSize];
     int wordIndex = 0;
     int charIndex = 0;
     int ch;
