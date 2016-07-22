@@ -18,35 +18,32 @@ print("Find the sum of the numerator of the 100th convergent fraction for e.\n")
 a = 2
 b = 1
 c = 0
-Multiplier = 0
-Count = 2
-NumCount = 1
+multiplier = 0
+count = 2
 debug = False
 
-while NumCount < 100:
+# Starting 2 steps in
+for i in range(2, 101):
     # Keep track of multipliers
-    if Count == 3:
-        Count = 1
-        Multiplier += 2
-        m = Multiplier
+    if count == 3:
+        count = 1
+        multiplier += 2
+        m = multiplier
     else:
-        Count += 1
+        count += 1
         m = 1
 
+    # Continued Fraction
     c = b
     b = a
-    a = b * m + c
-
-    NumCount += 1
+    a *= m
+    a += c
 
     if debug == True:
         print("%d = %d * %d + %d" % (a, b, m, c))
-        print("%d, %d" % (a, NumCount))
+        print("%d, %d" % (a, i))
 
-# Find the sume of the digits of the final numerator
-Answer = 0
-while a > 0:
-    Answer = Answer + a % 10
-    a = a / 10
-
-print("Sum of the 100th Numerator: %d" % (Answer))
+# Find the sum of the digits of the final numerator
+answer = 0
+for i in str(a): answer += int(i)
+print(answer)
