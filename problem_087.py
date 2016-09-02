@@ -52,6 +52,6 @@ while 1:
     else:
         Answers.update({Total:1})
         if debug == True:
-            print("%d^2 + %d^3 + ^d^4 = %d" % (Primes[A], Primes[B], Primes[C], Total))
+            print("%d^2 + %d^2 + %d^2 = %d" % (Primes[A], Primes[B], Primes[C], Total))
 
 print("Total unique: %d" % len(Answers))
