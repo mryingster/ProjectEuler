@@ -58,17 +58,14 @@ def writeToFile(file, buffer, append=False):
     else:
         open(file, "a").write(buffer)
 
-def MDfromArray(array, len):
-    string = "|"
+def MDfromArray(array, length):
+    string = ""
     for e in array:
-        string += " {0:{1}} |".format(e, len)
+        string += " {0:{1}} |".format(e, length)
     return string+"\n"
 
 def genMarkdownHeader(fields, MDFieldLen = 14):
-    buffer = ""
-
-    # Header
-    buffer += MDfromArray(fields, MDFieldLen)
+    buffer = MDfromArray(fields, MDFieldLen)
 
     tempArray = []
     for f in fields:
@@ -86,7 +83,24 @@ def genMarkdownRow(fields, data, MDFieldLen = 14):
     return MDfromArray(tempArray, MDFieldLen)
 
 def saveMarkDown(markDownFile, fieldsArray, dictArray):
+    # Generate fields for Solved and Optimized
+    fieldsArray.insert(1, "Solved")
+    fieldsArray.insert(2, "Optimized")
+    optThreshold = datetime.datetime.strptime('0:01:01.0', "%H:%M:%S.%f")
+    for dict in dictArray:
+        solved = ""
+        optimized = ""
+        for e in dict:
+            if e != "Problem" and dict[e] != "":
+                solved = "X"
+                if datetime.datetime.strptime(dict[e], "%H:%M:%S.%f") < optThreshold:
+                    optimized = "X"
+        dict.update({"Solved":solved, "Optimized":optimized})
+
+    # Generate Markdown for Header
     writeToFile(markDownFile, genMarkdownHeader(fieldsArray))
+
+    # Generate Markdown for Problems
     for results in dictArray:
         writeToFile(markDownFile, genMarkdownRow(fieldsArray, results), True)
 
@@ -170,9 +184,9 @@ def main(csvFile, markDownFile, dictArray, fieldsArray, params):
                     if executable == "": continue
                     dictArray[index].update({compileDict[ext]:timeSolution(executable)})
 
-            # Update CSV File
-            dictArray = resortArray(dictArray)
-            writeCSV(csvFile, dictArray, fieldsArray)
+        # Update CSV File
+        dictArray = resortArray(dictArray)
+        writeCSV(csvFile, dictArray, fieldsArray)
 
     # Write Mark Down File
     saveMarkDown(markDownFile, fieldsArray, dictArray)
