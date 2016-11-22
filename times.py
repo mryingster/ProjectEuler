@@ -133,14 +133,14 @@ def compile(path, ext):
         compileCommand = ["g++", "-std=c++0x", "-o", output, path, "ceuler.c", "-Wall", "-lm"]
     if ext == "swift":
         output = path[:-6]+"_swift"
-        compileCommand = ["swiftc",  path, "-o", output]
+        compileCommand = ["xcrun", "-sdk", "macosx", "swiftc",  path, "-o", output]
     if ext == "rs":
         output = path[:-3]+"_rs"
         compileCommand = ["rustc", "-o", output, path]
 
-    from subprocess import call
+    import subprocess
     try:
-        call(compileCommand)
+        subprocess.call(compileCommand)
     except:
         print("Unable to compile %s." % path)
         return ""
