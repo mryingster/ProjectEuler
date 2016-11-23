@@ -25,17 +25,10 @@ func concatenateInt(a: Int, b: Int) -> Int {
 }
 
 func checkPrimeConcatenation(a: Int, b: Int) -> Bool {
-    let aPrime = concatenateInt(a: a, b: b)
-    if isPrime(n: aPrime) == false {
-        return false
+    if isPrime(n: concatenateInt(a: a, b: b)) {
+        return isPrime(n: concatenateInt(a: b, b: a))
     }
-
-    let bPrime = concatenateInt(a: b, b: a)
-    if isPrime(n: bPrime) == false {
-        return false
-    }
-
-    return true
+    return false
 }
 
 func findSolution(primes: [Int], debug: Bool) -> Int{
@@ -95,6 +88,4 @@ for n in 2...limit-1 {
 }
 
 // Brute force a solution!
-var solution = findSolution(primes: primes, debug: debug)
-
-print(solution)
+print(findSolution(primes: primes, debug: debug))
