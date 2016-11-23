@@ -86,16 +86,30 @@ def saveMarkDown(markDownFile, fieldsArray, dictArray):
     # Generate fields for Solved and Optimized
     fieldsArray.insert(1, "Solved")
     fieldsArray.insert(2, "Optimized")
+    fieldsArray.insert(3, "Fastest Lang.")
+
     optThreshold = datetime.datetime.strptime('0:01:01.0', "%H:%M:%S.%f")
     for dict in dictArray:
         solved = ""
         optimized = ""
+        fastestLang = ["", ""]
         for e in dict:
             if e != "Problem" and dict[e] != "":
                 solved = "X"
-                if datetime.datetime.strptime(dict[e], "%H:%M:%S.%f") < optThreshold:
+                solveTime = datetime.datetime.strptime(dict[e], "%H:%M:%S.%f")
+
+                # Check if optimized
+                if solveTime < optThreshold:
                     optimized = "X"
-        dict.update({"Solved":solved, "Optimized":optimized})
+
+                # Check what fastest language is
+                if fastestLang[0] == "":
+                    fastestLang = [e, solveTime]
+                else:
+                    if solveTime < fastestLang[1]:
+                        fastestLang = [e, solveTime]
+
+        dict.update({"Solved":solved, "Optimized":optimized, "Fastest Lang.":fastestLang[0]})
 
     # Generate Markdown for Header
     writeToFile(markDownFile, genMarkdownHeader(fieldsArray))
