@@ -1,5 +1,5 @@
 #!/usr/bin/xcrun swift
-// -*- compile-command: "xcrun -sdk macosx swiftc problem_060.swift -o problem_060_swift" -*-
+// -*- compile-command: "xcrun -sdk macosx swiftc problem_061.swift -o problem_061_swift" -*-
 // Copyright (c) 2016 Michael Caldwell
 import Foundation
 
