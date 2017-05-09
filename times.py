@@ -151,6 +151,9 @@ def compile(path, ext):
     if ext == "rs":
         output = path[:-3]+"_rs"
         compileCommand = ["rustc", "-o", output, path]
+    if ext == "go":
+        output = path[:-3]+"_go"
+        compileCommand = ["go", "build", "-o", output, path]
 
     import subprocess
     try:
@@ -164,7 +167,7 @@ def compile(path, ext):
 
 def main(csvFile, markDownFile, dictArray, fieldsArray, params):
     scriptDict = {"py":"Python","lua":"Lua","pl":"Perl","sh":"Bash"}
-    compileDict = {"c":"C/C++", "rs":"Rust", "swift":"Swift", "cpp":"C/C++"}
+    compileDict = {"c":"C/C++", "rs":"Rust", "swift":"Swift", "cpp":"C/C++", "go":"Go"}
 
     for problem in range(params["range"][0], params["range"][1]):
         if problem < 1: continue
@@ -209,7 +212,7 @@ def main(csvFile, markDownFile, dictArray, fieldsArray, params):
 # Create file(s)
 csvFile = "times.csv"
 markDownFile = "times.md"
-fieldsArray = ["Problem", "C/C++", "Swift", "Python", "Perl", "Lua", "Rust", "Bash"]
+fieldsArray = ["Problem", "C/C++", "Swift", "Rust", "Python", "Perl", "Lua", "Bash", "Go"]
 
 verifyCSVFileExists(csvFile, fieldsArray)
 dictArray = readCSV(csvFile)
