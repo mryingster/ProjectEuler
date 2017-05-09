@@ -25,8 +25,8 @@ func main() {
         for a := 100; a < 999; a++ {
 		for b := a; b < 999; b++ {
 			candidate := a * b
-			if reverse(candidate) == candidate {
-				if candidate > palindrome {
+			if candidate > palindrome {
+				if reverse(candidate) == candidate {
 					palindrome = candidate
 				}
 			}
