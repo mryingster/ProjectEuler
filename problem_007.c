@@ -12,14 +12,11 @@ int main()
     struct timeval start;
     gettimeofday(&start, NULL);
 
-    int primeCount    = 0;
-    int candidate     = 1;
+    int limit = 10001;
+    int *primes = malloc(limit*sizeof(int));
+    primeSieve(primes, limit);
 
-    while (primeCount < 10001)
-        if (isPrime(++candidate))
-            primeCount++;
-
-    printf("10,001st prime: %d\n", candidate);
+    printf("%d\n", primes[limit-1]);
     printElapsedTime(start);
 
     return 0;
