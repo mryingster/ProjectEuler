@@ -6,16 +6,16 @@ echo
 
 function isPrime() {
     for (( i=3; i*i<=$1; i+=2 )); do
-        [ $(($1 % $i)) == 0 ] && return 1
+        [[ $(($1 % $i)) == 0 ]] && return 1
     done
     return 0
 }
 
-count=1
+count=10001
 n=1
-while [ $count -lt 10001 ]; do
-    n=$(($n + 2))
-    $(isPrime $n) && count=$(($count + 1))
+while [[ $count -ne 1 ]]; do
+    ((n=n + 2))
+    $(isPrime $n) && ((count--))
 done
 
 echo "$n"
