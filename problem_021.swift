@@ -17,8 +17,8 @@ func sumDivisors(n:Int) -> Int {
 
 var sum = 0
 for n in 1...10000 {
-    var a = sumDivisors(n)
-    var b = sumDivisors(a)
+    var a = sumDivisors(n: n)
+    var b = sumDivisors(n: a)
 
     if b == n && b != a {
         sum += n

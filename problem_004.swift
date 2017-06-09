@@ -26,7 +26,7 @@ var l = 0
 for a in 900...999 {
     for b in 900...999 {
         var p = a * b
-        if isPalindrome(p) == true && p > l {
+        if isPalindrome(input: p) == true && p > l {
             l = p
         }
     }

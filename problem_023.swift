@@ -1,42 +1,36 @@
 #!/usr/bin/xcrun swift
-// -*- compile-command: "swiftc problem_023.swift -o problem_023" -*-
+// -*- compile-command: "swiftc problem_023.swift -o problem_023 -O" -*-
 // Copyright (c) 2016 Michael Caldwell
 
 print("Project Euler - Problem 23:")
 print("Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.\n")
 
-func divisorSum(n:Int) -> Int {
-    var s = 0
-    for d in 1...n/2+1 {
-        if n % d == 0 {
-            s += d
-        }
-    }
-    return s
-}
-
 let limit = 28123
-var abundant: [Int] = []
+var divisorSums = [Int](repeating: 1, count: limit + 1)
+var abundantNumbers: [Int] = []
 
-for var n in 12...limit {
-    if divisorSum(n) > n {
-        abundant.append(n)
+for var n in 2...limit {
+    if divisorSums[n] > n {
+        abundantNumbers.append(n)
+    }
+
+    for var m in stride(from:n, to:limit, by:n) {
+        divisorSums[m] += n
     }
 }
 
-var abundantSum = [Bool](count: limit, repeatedValue: false)
-for var a in 0...abundant.count-1 {
-    for var b in 0...abundant.count-1 {
-        var n = abundant[a] + abundant[b]
-        if n >= limit {
-            break
-        }
+var abundantSum = [Bool](repeating: false, count: limit)
+for var a in abundantNumbers {
+    for var b in abundantNumbers {
+        if b < a { continue }
+        var n = a + b
+        if n >= limit { break }
         abundantSum[n] = true
     }
 }
 
 var sum = 0
-for var n in 0...limit-1 {
+for var n in 0..<limit {
     if abundantSum[n] == false {
         sum += n
     }

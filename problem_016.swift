@@ -25,7 +25,7 @@ for i in 2...1000 {
 }
 
 var sum = 0
-for var n = num.count-1; n >= 0 ; n-- {
+for var n in stride(from: num.count-1, to: 0, by: -1) {
     sum += num[n]
     if debug == true {
         print(num[n], terminator: "")

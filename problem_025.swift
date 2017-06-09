@@ -26,7 +26,7 @@ while a.count < 1000+1 {
     }
 
     b = c
-    index++
+    index += 1
 }
 
 print(index)

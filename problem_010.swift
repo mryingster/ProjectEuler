@@ -11,10 +11,12 @@ func isPrime(n:Int) -> Bool {
     if n == 2 { return true }
     if n % 2 == 0 { return false }
 
-    for var i = 3; i * i <= n ; i+=2 {
+    var i = 3
+    while i * i <= n {
         if n % i == 0 {
             return false
         }
+        i += 2
     }
 
     return true;
@@ -23,8 +25,8 @@ func isPrime(n:Int) -> Bool {
 let limit = 2000000
 var sum = 2
 
-for var n = 3 ; n<limit ; n+=2 {
-    if isPrime(n) == true {
+for var n in stride(from: 3, to: limit, by: 2) {
+    if isPrime(n: n) == true {
         sum += n
     }
 }

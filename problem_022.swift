@@ -3,6 +3,7 @@
 // Copyright (c) 2016 Michael Caldwell
 import Cocoa
 import Darwin
+import Foundation
 
 print("Project Euler - Problem 22:")
 print("Sort 5000 names and calculate the sum of their name scores.\n")
@@ -24,7 +25,7 @@ func name_score(name: String) -> Int {
 }
 
 // Import data from file
-let file: NSFileHandle? = NSFileHandle(forReadingAtPath: "problem_022.txt")
+let file: FileHandle? = FileHandle(forReadingAtPath: "problem_022.txt")
 if file == nil {
     print("Unable to open file.")
     exit(1)
@@ -37,18 +38,18 @@ let data = file?.readDataToEndOfFile()
 file?.closeFile()
 
 // Convert our data to string
-let dataAsString = String(data: data!, encoding: NSUTF8StringEncoding)
+let dataAsString = String(data: data!, encoding: String.Encoding.utf8)
 
 // Separate names into array
-var names = dataAsString!.componentsSeparatedByString(",")
+var names = dataAsString!._split(separator: ",")
 
 // Sort names alphabetically
-names.sortInPlace { return $0 < $1 }
+names.sort() { return $0 < $1 }
 
 // Calculate name score
 var total = 0
 for i in 1...names.count {
-    let score = name_score(names[i-1])
+    let score = name_score(name: names[i-1])
     total += score * i
 }
 

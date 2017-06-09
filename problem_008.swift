@@ -9,7 +9,7 @@ print("Project Euler - Problem 8:")
 print("Find the thirteen adjacent digits in the 1000-digit number that have the greatest product. What is the value of this product?\n")
 print(bignum, "\n")
 
-func sumString(s:String) -> Int {
+func multiplyString(s:String) -> Int {
     var n: Int! = Int(s)
     var r = 1
     while n > 1 {
@@ -22,9 +22,13 @@ func sumString(s:String) -> Int {
 var maxProduct = 0
 let length = 13
 
-for i in 0...bignum.characters.count-1-length {
-    let range = Range(start: bignum.startIndex.advancedBy(i), end: bignum.startIndex.advancedBy(i+length))
-    var product = sumString(bignum.substringWithRange(range))
+for i in 0 ..< bignum.characters.count - length {
+    // Get the string from our current index to the end
+    var adjacentDigits = bignum.substring(from: bignum.index(bignum.startIndex, offsetBy: i))
+    // Only keep the specified length
+    adjacentDigits = adjacentDigits.substring(to: adjacentDigits.index(adjacentDigits.startIndex, offsetBy: length))
+    // Multiply all the digits together
+    var product = multiplyString(s: adjacentDigits)
 
     if product > maxProduct{
         maxProduct = product

@@ -7,7 +7,7 @@ print("Which starting number, under one million, produces the longest chain by f
 
 print("if n is even, n/2\nif n is odd, 3n+1\n")
 
-func length(let input: Int, let history: [Int]) -> Int {
+func length(input: Int, history: [Int]) -> Int {
     var n = input
     var c = 1
 
@@ -24,10 +24,10 @@ func length(let input: Int, let history: [Int]) -> Int {
             n /= 2
         } else {
             n *= 3
-            n++
+            n += 1
         }
 
-        c++
+        c += 1
 
         if n == input {
              return -1
@@ -42,7 +42,7 @@ var maxN = 0
 var maxC = 0
 
 for i in 2...1000000 {
-    history.append(length(i, history: history))
+    history.append(length(input: i, history: history))
     if history[i] > maxC {
         maxC = history[i]
         maxN = i

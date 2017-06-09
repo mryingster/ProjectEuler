@@ -12,7 +12,7 @@ while d < n {
     if n % d == 0 {
         n /= d
     } else {
-        d++
+        d += 1
     }
 }
 

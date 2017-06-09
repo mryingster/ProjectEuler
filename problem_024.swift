@@ -5,7 +5,8 @@
 print("Project Euler - Problem 24:")
 print("Find the 1,000,000th lexiconic permutation of the numbers 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9.\n")
 
-func nextPermutation(var a: [Int]) -> [Int] {
+func nextPermutation(a: [Int]) -> [Int] {
+    var a = a
     // Find the largest index k such that a[k] < a[k + 1]
     var k = 0
     for i in 0...8 {
@@ -47,7 +48,7 @@ var number: [Int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 var count = 0
 
 while count < 1000000 {
-    number = nextPermutation(number)
+    number = nextPermutation(a: number)
     count += 1
     //print(number, count)
 }

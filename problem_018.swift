@@ -22,19 +22,19 @@ var triangle: [[Int]] = [[75],
                          [63,66, 4,68,89,53,67,30,73,16,69,87,40,31],
                          [04,62,98,27,23, 9,70,98,73,93,38,53,60, 4,23]];
 
-for var y = 0 ; y < triangle.count ; y++ {
+for var y in stride(from: 0, to: triangle.count, by: 1) {
     for var i in 0...(triangle.count-y-1) {
         print("  ", terminator: "")
     }
-    for var x = 0 ; x < triangle[y].count ; x++ {
+    for var x in stride(from: 0, to: triangle[y].count, by: 1) {
         print(String(format: "%02d  ", triangle[y][x]), terminator: "")
     }
     print("")
 }
 print("")
 
-for var y = triangle.count-2 ; y >= 0 ; y-- {
-    for var x = 0 ; x < triangle[y].count ; x++ {
+for var y in stride(from: triangle.count-2, to: -1, by: -1) {
+    for var x in stride(from: 0, to: triangle[y].count, by: 1) {
         if triangle[y+1][x] > triangle[y+1][x+1] {
             triangle[y][x] +=  triangle[y+1][x]
         } else {

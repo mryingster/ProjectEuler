@@ -12,7 +12,7 @@ var date = 1    // Date of the month
 var day = 2     // Day of the week, 1901 Starts on a Teusday (0 = sunday, etc...)
 
 while year < 2001 {
-    if date == 1 && day == 0 {count++ }
+    if date == 1 && day == 0 {count += 1 }
 
     var monthLength = 31
     if month == 4 || month == 6 || month == 9 || month == 11 {
@@ -25,16 +25,18 @@ while year < 2001 {
         }
     }
 
-    if ++day > 6 { day -= 7 }
+    day += 1
+    if day > 6 { day -= 7 }
 
-    if ++date > monthLength {
+    date += 1
+    if date > monthLength {
         date = 1
-        month++
+        month += 1
     }
 
     if month > 12 {
         month = 1
-        year++
+        year += 1
     }
 }
 
