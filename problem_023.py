@@ -3,30 +3,26 @@
 print("Project Euler - Problem 23:")
 print("Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.\n")
 
-def divisorSum(n):
-    sum = 0
-    if n % 2 != 0 and n % 3 != 0: return 0
-    for i in range(1, n/2+1):
-        if n % i == 0:
-            sum += i
-    return sum
+limit = 28123
 
-limit = 20162
+divisorSums = [0] * limit
+abundantNumbers = []
 
-abundant = []
-for i in range(2, limit, 1):
-    d = divisorSum(i)
-    if d > i: abundant.append(i)
+# Use seive to find divisor sums
+for i in range(1, limit):
+    if divisorSums[i] > i:
+        abundantNumbers.append(i)
+    for n in range(i, limit, i):
+        divisorSums[n] += i
 
-abundantSums = [False] * limit
-for a in abundant:
-    for b in abundant:
-        if a+b > limit-1: break
-        abundantSums[a+b] = True
+# Combine abundant numbers and eliminate abundant sums
+nonAbundantSums = [i for i in range(limit)]
+for a in range(len(abundantNumbers)):
+    for b in range(a, len(abundantNumbers)):
+        abundantSum = abundantNumbers[a] + abundantNumbers[b]
+        if abundantSum >= limit:
+            break
 
-sum = 0
-for i in range(len(abundantSums)):
-    if abundantSums[i] == False:
-        sum += i
+        nonAbundantSums[abundantSum] = 0
 
-print(sum)
+print(sum(nonAbundantSums))
