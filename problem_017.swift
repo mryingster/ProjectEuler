@@ -45,13 +45,13 @@ for i in 1...1000 {
     var n = i
 
     if n > 999 {
-        sum += numLen(n / 100)
+        sum += numLen(n: n / 100)
         sum += 8 // thousand
         n %= 1000
     }
 
     if n > 99 {
-        sum += numLen(n / 100)
+        sum += numLen(n: n / 100)
         sum += 7 // hundred
         n %= 100
         if n != 0 {
@@ -60,10 +60,10 @@ for i in 1...1000 {
     }
 
     if n < 21 {
-        sum += numLen(n)
+        sum += numLen(n: n)
     } else {
-        sum += numLen((n/10)*10)
-        sum += numLen(n%10)
+        sum += numLen(n: (n / 10) * 10)
+        sum += numLen(n: n % 10)
     }
 }
 
