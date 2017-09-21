@@ -120,14 +120,18 @@ def saveMarkDown(markDownFile, fieldsArray, dictArray):
 
 #### Timing Operations ####
 
-def timeSolution(path):
+def timeSolution(path, ext):
     if not os.path.exists(path): return ""
     print ("Testing: %s." % path)
+
+    command = [path]
+    if ext == "kt":
+        command = ["java", "-jar", path]
 
     from subprocess import call
     start = datetime.datetime.now()
     try:
-        call(path)
+        call(command)
     except:
         print("Error encountered while testing %s." % path)
         return ""
@@ -154,6 +158,9 @@ def compile(path, ext):
     if ext == "go":
         output = path[:-3]+"_go"
         compileCommand = ["go", "build", "-o", output, path]
+    if ext == "kt":
+        output = path[:-2]+"jar"
+        compileCommand = ["kotlinc", path, "-include-runtime", "-d", output]
 
     import subprocess
     try:
@@ -167,7 +174,7 @@ def compile(path, ext):
 
 def main(csvFile, markDownFile, dictArray, fieldsArray, params):
     scriptDict = {"py":"Python","lua":"Lua","pl":"Perl","sh":"Bash"}
-    compileDict = {"c":"C/C++", "rs":"Rust", "swift":"Swift", "cpp":"C/C++", "go":"Go"}
+    compileDict = {"c":"C/C++", "rs":"Rust", "swift":"Swift", "cpp":"C/C++", "go":"Go", "kt":"Kotlin"}
 
     for problem in range(params["range"][0], params["range"][1]):
         if problem < 1: continue
@@ -199,7 +206,7 @@ def main(csvFile, markDownFile, dictArray, fieldsArray, params):
                     if ext == "swift" and platform.system() != "Darwin": continue
                     executable = compile(f, ext)
                     if executable == "": continue
-                    dictArray[index].update({compileDict[ext]:timeSolution(executable)})
+                    dictArray[index].update({compileDict[ext]:timeSolution(executable, ext)})
 
         # Update CSV File
         dictArray = resortArray(dictArray)
@@ -212,7 +219,7 @@ def main(csvFile, markDownFile, dictArray, fieldsArray, params):
 # Create file(s)
 csvFile = "times.csv"
 markDownFile = "times.md"
-fieldsArray = ["Problem", "C/C++", "Swift", "Rust", "Python", "Perl", "Lua", "Bash", "Go"]
+fieldsArray = ["Problem", "C/C++", "Swift", "Rust", "Python", "Perl", "Lua", "Bash", "Go", "Kotlin"]
 
 verifyCSVFileExists(csvFile, fieldsArray)
 dictArray = readCSV(csvFile)
