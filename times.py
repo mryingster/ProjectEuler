@@ -198,7 +198,7 @@ def main(csvFile, markDownFile, dictArray, fieldsArray, params):
             # Time script based solutions
             if ext in scriptDict:
                 if params["retest"] == True or scriptDict[ext] not in dictArray[index] or dictArray[index][scriptDict[ext]] == "":
-                    dictArray[index].update({scriptDict[ext]:timeSolution(f)})
+                    dictArray[index].update({scriptDict[ext]:timeSolution(f, ext)})
 
             # Time compiled solutions
             if ext in compileDict:
