@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 print("Project Euler - Problem 34:")
-print("Find the sum of all the numbers that can be written as the sum of fifth powers of their digits\n")
+print("Find the sum of all the numbers that can be written as the sum of the factorials of their digits\n")
 
 def factorial(n):
     if n == 0:
