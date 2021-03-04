@@ -8,8 +8,8 @@ result = 0
 for a in range(100, 999):
     for b in range(a, 999):
         product = a*b
-        if (product == int(str(product)[::-1])):
-            if product > result:
+        if product > result:
+            if (product == int(str(product)[::-1])):
                 result = product
 
 print(result)
