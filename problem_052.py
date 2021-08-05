@@ -11,6 +11,7 @@ for x in range(1000000):
         if sig == sorted(str(x * n)):
             answer = x
         else:
+            answer = 0
             break
 
     if answer != 0:
