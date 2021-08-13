@@ -1,7 +1,7 @@
 #!/usr/bin/node
 
 console.log("Project Euler - Problem 36:");
-console.log("How many circular primes are there below one million?\n");
+console.log("Find the sum of all numbers, less than one million, which are palindromic in base 10 and base 2.\n");
 
 function is_palindromic(n){
     if (n == n.split("").reverse().join(""))
